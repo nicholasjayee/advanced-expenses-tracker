@@ -19,19 +19,19 @@ export const DebtStrategy: React.FC<DebtStrategyProps> = ({ highestAprLiability,
                   <Target size={24} />
                </div>
                <div>
-                  <h3 className="text-lg font-semibold text-white">Recommended Strategy: Avalanche Method</h3>
-                  <p className="text-sm text-gray-400 mt-2 leading-relaxed">
+                  <h3 className="text-lg font-semibold text-text">Recommended Strategy: Avalanche Method</h3>
+                  <p className="text-sm text-gray-500 mt-2 leading-relaxed">
                      To minimize interest payments, you should prioritize paying off <strong>{highestAprLiability.name}</strong> first, as it has the highest APR of <strong>{highestAprLiability.interestRate}%</strong>.
                   </p>
                   
                   <div className="mt-4 flex flex-wrap gap-4">
-                     <div className="bg-black/20 p-3 rounded-lg border border-white/5">
+                     <div className="bg-surface/50 p-3 rounded-lg border border-border">
                         <p className="text-xs text-muted mb-1">Target Priority</p>
                         <p className="text-sm font-bold text-danger">{highestAprLiability.name}</p>
                      </div>
-                     <div className="bg-black/20 p-3 rounded-lg border border-white/5">
+                     <div className="bg-surface/50 p-3 rounded-lg border border-border">
                         <p className="text-xs text-muted mb-1">Total Min Payments</p>
-                        <p className="text-sm font-bold text-white">${totalMonthlyPayment.toLocaleString()}/mo</p>
+                        <p className="text-sm font-bold text-text">${totalMonthlyPayment.toLocaleString()}/mo</p>
                      </div>
                   </div>
                   

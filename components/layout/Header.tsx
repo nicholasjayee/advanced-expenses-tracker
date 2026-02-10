@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
         <div className="relative" ref={notifRef}>
           <button 
             onClick={() => setIsNotifOpen(!isNotifOpen)}
-            className={`relative p-2 rounded-full transition-colors ${isNotifOpen ? 'bg-white/10 text-white' : 'text-muted hover:text-white'}`}
+            className={`relative p-2 rounded-full transition-colors ${isNotifOpen ? 'bg-muted/10 text-text' : 'text-muted hover:text-text'}`}
           >
             <Bell size={20} />
             {unreadCount > 0 && (
@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
         
         <div className="flex items-center gap-3 cursor-pointer">
           <div className="text-right hidden sm:block">
-            <p className="text-sm font-medium text-white">{profile.name}</p>
+            <p className="text-sm font-medium text-text">{profile.name}</p>
             <p className="text-xs text-muted">Pro Plan</p>
           </div>
           {profile.avatarUrl ? (

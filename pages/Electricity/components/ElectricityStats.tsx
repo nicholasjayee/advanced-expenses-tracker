@@ -22,7 +22,7 @@ export const ElectricityStats: React.FC<StatsProps> = ({ stats }) => {
           </div>
           <span className="text-sm text-muted">Total Usage</span>
         </div>
-        <h3 className="text-2xl font-bold text-white">{stats.totalKwh.toLocaleString()} <span className="text-sm font-normal text-muted">kWh</span></h3>
+        <h3 className="text-2xl font-bold text-text">{stats.totalKwh.toLocaleString()} <span className="text-sm font-normal text-muted">kWh</span></h3>
       </Card>
 
       <Card className="bg-surface/50">
@@ -32,7 +32,7 @@ export const ElectricityStats: React.FC<StatsProps> = ({ stats }) => {
           </div>
           <span className="text-sm text-muted">Total Cost</span>
         </div>
-        <h3 className="text-2xl font-bold text-white">${stats.totalCost.toLocaleString()}</h3>
+        <h3 className="text-2xl font-bold text-text">${stats.totalCost.toLocaleString()}</h3>
       </Card>
 
       <Card className="bg-surface/50">
@@ -42,7 +42,7 @@ export const ElectricityStats: React.FC<StatsProps> = ({ stats }) => {
           </div>
           <span className="text-sm text-muted">Avg Buffer</span>
         </div>
-        <h3 className="text-2xl font-bold text-white">{stats.avgUnitsRemaining.toFixed(1)} <span className="text-sm font-normal text-muted">Units left</span></h3>
+        <h3 className="text-2xl font-bold text-text">{stats.avgUnitsRemaining.toFixed(1)} <span className="text-sm font-normal text-muted">Units left</span></h3>
       </Card>
 
       <Card className="bg-surface/50">
@@ -56,7 +56,7 @@ export const ElectricityStats: React.FC<StatsProps> = ({ stats }) => {
            )}
           <span className="text-sm text-muted">Usage Trend</span>
         </div>
-        <h3 className="text-2xl font-bold text-white">{stats.trend}</h3>
+        <h3 className="text-2xl font-bold text-text">{stats.trend}</h3>
       </Card>
     </div>
   );

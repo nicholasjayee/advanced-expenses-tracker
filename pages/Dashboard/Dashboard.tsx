@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { Card } from '../../components/ui/Card';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -135,7 +134,7 @@ const Dashboard: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-end gsap-fade-in">
         <div>
-          <h2 className="text-3xl font-bold text-white">Dashboard</h2>
+          <h2 className="text-3xl font-bold text-text">Dashboard</h2>
           <p className="text-muted">Overview of your Enterprise Wealth OS.</p>
         </div>
         <div className="flex gap-2">
@@ -233,7 +232,7 @@ const Dashboard: React.FC = () => {
                           className="w-full bg-accent/80 rounded-t-sm transition-all duration-500 hover:bg-accent min-h-[4px]"
                           style={{ height: `${height}%` }}
                         >
-                           <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-surface border border-border px-2 py-1 rounded text-xs whitespace-nowrap z-10 pointer-events-none">
+                           <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-surface border border-border px-2 py-1 rounded text-xs whitespace-nowrap z-10 pointer-events-none text-text">
                               {data.kwh} kWh
                            </div>
                         </div>
@@ -269,7 +268,7 @@ const StatCard = ({ title, value, change, isPositive, icon, footer }: { title: s
     <div className="flex justify-between items-start">
       <div>
         <p className="text-muted text-sm font-medium">{title}</p>
-        <h3 className="text-2xl font-bold text-white mt-2">{value}</h3>
+        <h3 className="text-2xl font-bold text-text mt-2">{value}</h3>
       </div>
       <div className={`p-2 rounded-lg ${isPositive ? 'bg-secondary/10 text-secondary' : 'bg-danger/10 text-danger'}`}>
         {icon}

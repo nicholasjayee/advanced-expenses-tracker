@@ -12,7 +12,7 @@ export const AssetList: React.FC<AssetListProps> = ({ assets }) => {
   return (
     <div className="bg-surface border border-border rounded-xl overflow-hidden gsap-fade-in">
       <div className="p-6 border-b border-border flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-white">Portfolio Holdings</h3>
+        <h3 className="text-lg font-semibold text-text">Portfolio Holdings</h3>
         <span className="text-xs text-muted">Real-time data simulated</span>
       </div>
       <div className="overflow-x-auto">
@@ -37,7 +37,7 @@ export const AssetList: React.FC<AssetListProps> = ({ assets }) => {
               const AssetIcon = asset.type === AssetClass.INSURANCE ? Shield : Wallet;
 
               return (
-                <tr key={asset.id} className="hover:bg-white/5 transition-colors group">
+                <tr key={asset.id} className="hover:bg-muted/5 transition-colors group">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold
@@ -50,7 +50,7 @@ export const AssetList: React.FC<AssetListProps> = ({ assets }) => {
                          {asset.type === AssetClass.EQUITY || asset.type === AssetClass.CRYPTO ? asset.name[0] : <AssetIcon size={14}/>}
                       </div>
                       <div>
-                         <span className="font-medium text-white block">{asset.name}</span>
+                         <span className="font-medium text-text block">{asset.name}</span>
                          <span className="text-[10px] text-muted">{asset.purchaseDate}</span>
                       </div>
                     </div>
@@ -64,7 +64,7 @@ export const AssetList: React.FC<AssetListProps> = ({ assets }) => {
                   <td className="px-6 py-4 text-right text-sm text-muted">
                     {symbol}{asset.costBasis.toLocaleString()}
                   </td>
-                  <td className="px-6 py-4 text-right text-white font-medium">
+                  <td className="px-6 py-4 text-right text-text font-medium">
                     {symbol}{asset.value.toLocaleString()}
                   </td>
                   <td className="px-6 py-4 text-right">

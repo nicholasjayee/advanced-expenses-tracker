@@ -56,7 +56,7 @@ export const AddLiabilityForm: React.FC<AddLiabilityFormProps> = ({ onAdd }) => 
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Home Mortgage, Chase Card"
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-white"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-text"
                 required
               />
             </div>
@@ -70,7 +70,7 @@ export const AddLiabilityForm: React.FC<AddLiabilityFormProps> = ({ onAdd }) => 
                  <select
                    value={category}
                    onChange={(e) => setCategory(e.target.value)}
-                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-white appearance-none cursor-pointer"
+                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-text appearance-none cursor-pointer"
                  >
                    {Object.values(LiabilityCategory).map(cat => (
                      <option key={cat} value={cat}>{cat}</option>
@@ -83,7 +83,7 @@ export const AddLiabilityForm: React.FC<AddLiabilityFormProps> = ({ onAdd }) => 
                <select
                    value={currency}
                    onChange={(e) => setCurrency(e.target.value)}
-                   className="w-full bg-background border border-border rounded-lg p-2.5 text-sm focus:border-danger focus:outline-none text-white"
+                   className="w-full bg-background border border-border rounded-lg p-2.5 text-sm focus:border-danger focus:outline-none text-text"
                  >
                    {availableCurrencies.map(c => (
                      <option key={c.code} value={c.code}>{c.code}</option>
@@ -102,7 +102,7 @@ export const AddLiabilityForm: React.FC<AddLiabilityFormProps> = ({ onAdd }) => 
                   value={totalAmount}
                   onChange={(e) => setTotalAmount(e.target.value)}
                   placeholder="0.00"
-                  className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-white"
+                  className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-text"
                   required
                 />
               </div>
@@ -116,7 +116,7 @@ export const AddLiabilityForm: React.FC<AddLiabilityFormProps> = ({ onAdd }) => 
                   value={remainingAmount}
                   onChange={(e) => setRemainingAmount(e.target.value)}
                   placeholder="0.00"
-                  className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-white"
+                  className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-text"
                   required
                 />
               </div>
@@ -133,7 +133,7 @@ export const AddLiabilityForm: React.FC<AddLiabilityFormProps> = ({ onAdd }) => 
                    value={interestRate}
                    onChange={(e) => setInterestRate(e.target.value)}
                    placeholder="e.g. 4.5"
-                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-white"
+                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-text"
                    step="0.01"
                  />
                </div>
@@ -147,7 +147,7 @@ export const AddLiabilityForm: React.FC<AddLiabilityFormProps> = ({ onAdd }) => 
                    value={minimumPayment}
                    onChange={(e) => setMinimumPayment(e.target.value)}
                    placeholder="0.00"
-                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-white"
+                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-text"
                  />
                </div>
              </div>
@@ -161,7 +161,7 @@ export const AddLiabilityForm: React.FC<AddLiabilityFormProps> = ({ onAdd }) => 
                  type="date"
                  value={dueDate}
                  onChange={(e) => setDueDate(e.target.value)}
-                 className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-white appearance-none"
+                 className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-danger focus:outline-none text-text appearance-none"
                />
              </div>
           </div>

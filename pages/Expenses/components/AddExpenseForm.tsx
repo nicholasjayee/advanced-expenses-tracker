@@ -62,7 +62,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
                 type="date"
                 value={dateStr}
                 onChange={(e) => setDateStr(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white placeholder-muted/50 appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text placeholder-muted/50 appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full"
                 required
               />
             </div>
@@ -75,7 +75,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
               <select
                 value={selectedAccountId}
                 onChange={(e) => setSelectedAccountId(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white appearance-none cursor-pointer"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text appearance-none cursor-pointer"
                 required
               >
                 <option value="" disabled>Select Payment Source</option>
@@ -97,7 +97,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="e.g. Electric Bill, Rent, Gift for Mom"
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white placeholder-muted/50"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text placeholder-muted/50"
                 required
               />
             </div>
@@ -108,7 +108,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
             <div className="relative">
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted flex items-center justify-center w-5">
                  {selectedAccount ? (
-                   <span className="text-sm font-semibold text-white">{getCurrencySymbol(selectedAccount.currency)}</span>
+                   <span className="text-sm font-semibold text-text">{getCurrencySymbol(selectedAccount.currency)}</span>
                  ) : (
                    <DollarSign size={16} />
                  )}
@@ -118,7 +118,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white placeholder-muted/50"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text placeholder-muted/50"
                 required
                 step="0.01"
               />
@@ -137,7 +137,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white appearance-none cursor-pointer"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text appearance-none cursor-pointer"
               >
                 <option value="">Auto-Categorize (AI)</option>
                 {Object.values(ExpenseCategory).map((cat) => (
@@ -158,7 +158,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
                   value={units}
                   onChange={(e) => setUnits(e.target.value)}
                   placeholder="e.g. 150"
-                  className="w-full bg-background border border-accent/30 rounded-lg p-2 text-sm focus:border-accent focus:outline-none text-white placeholder-muted/50"
+                  className="w-full bg-background border border-accent/30 rounded-lg p-2 text-sm focus:border-accent focus:outline-none text-text placeholder-muted/50"
                   step="1"
                 />
               </div>
@@ -171,7 +171,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
                   value={unitsRemaining}
                   onChange={(e) => setUnitsRemaining(e.target.value)}
                   placeholder="e.g. 15.4"
-                  className="w-full bg-background border border-emerald-500/30 rounded-lg p-2 text-sm focus:border-emerald-500 focus:outline-none text-white placeholder-muted/50"
+                  className="w-full bg-background border border-emerald-500/30 rounded-lg p-2 text-sm focus:border-emerald-500 focus:outline-none text-text placeholder-muted/50"
                   step="0.1"
                 />
               </div>
@@ -186,7 +186,7 @@ export const AddExpenseForm: React.FC<AddExpenseFormProps> = ({ onAdd, isCategor
                <select
                 value={selectedLiabilityId}
                 onChange={(e) => setSelectedLiabilityId(e.target.value)}
-                className="w-full bg-background border border-danger/30 rounded-lg p-2 text-sm focus:border-danger focus:outline-none text-white"
+                className="w-full bg-background border border-danger/30 rounded-lg p-2 text-sm focus:border-danger focus:outline-none text-text"
                >
                  <option value="" disabled>Select Liability</option>
                  {liabilities.map(l => (

@@ -33,12 +33,12 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, accounts }) 
           >
             <div className="flex items-center gap-4">
               <div className={`w-10 h-10 rounded-full border border-border flex items-center justify-center transition-colors
-                ${isElectricity ? 'bg-accent/10 text-accent border-accent/20' : 'bg-background text-muted group-hover:text-white'}
+                ${isElectricity ? 'bg-accent/10 text-accent border-accent/20' : 'bg-background text-muted group-hover:text-text'}
               `}>
                 {isElectricity ? <Zap size={18} /> : <Tag size={18} />}
               </div>
               <div>
-                <h4 className="font-semibold text-white">{expense.description}</h4>
+                <h4 className="font-semibold text-text">{expense.description}</h4>
                 <div className="flex flex-wrap items-center gap-3 text-xs text-muted mt-1">
                   <span className={`px-2 py-0.5 rounded ${isElectricity ? 'bg-accent/10 text-accent' : 'bg-primary/10 text-primary'}`}>
                     {expense.category}
@@ -62,7 +62,7 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, accounts }) 
               </div>
             </div>
             <div className="text-right">
-              <p className="text-lg font-bold text-white">
+              <p className="text-lg font-bold text-text">
                 -{getCurrencySymbol(expense.currency || 'USD')}{expense.amount.toFixed(2)}
               </p>
             </div>

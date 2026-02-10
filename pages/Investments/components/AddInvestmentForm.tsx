@@ -80,7 +80,7 @@ export const AddInvestmentForm: React.FC<AddInvestmentFormProps> = ({ onAdd, acc
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Tesla Stock, Life Insurance..."
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text"
                 required
               />
             </div>
@@ -94,7 +94,7 @@ export const AddInvestmentForm: React.FC<AddInvestmentFormProps> = ({ onAdd, acc
                   <select
                     value={type}
                     onChange={(e) => setType(e.target.value as AssetClass)}
-                    className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white appearance-none cursor-pointer"
+                    className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text appearance-none cursor-pointer"
                   >
                     {Object.entries(ASSET_CLASS_LABELS).map(([val, label]) => (
                       <option key={val} value={val}>{label}</option>
@@ -109,7 +109,7 @@ export const AddInvestmentForm: React.FC<AddInvestmentFormProps> = ({ onAdd, acc
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="1"
-                  className="w-full bg-background border border-border rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none text-white"
+                  className="w-full bg-background border border-border rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none text-text"
                   step="0.0001"
                   required
                 />
@@ -124,7 +124,7 @@ export const AddInvestmentForm: React.FC<AddInvestmentFormProps> = ({ onAdd, acc
               <select
                 value={sourceAccountId}
                 onChange={(e) => setSourceAccountId(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white appearance-none cursor-pointer"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text appearance-none cursor-pointer"
                 required
               >
                 <option value="" disabled>Select Account</option>
@@ -148,7 +148,7 @@ export const AddInvestmentForm: React.FC<AddInvestmentFormProps> = ({ onAdd, acc
                 value={amountInvested}
                 onChange={(e) => setAmountInvested(e.target.value)}
                 placeholder="0.00"
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-white"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-primary focus:outline-none text-text"
                 required
                 min="0.01"
                 step="0.01"
@@ -163,7 +163,7 @@ export const AddInvestmentForm: React.FC<AddInvestmentFormProps> = ({ onAdd, acc
                 <select
                     value={assetCurrency}
                     onChange={(e) => setAssetCurrency(e.target.value)}
-                    className="w-full bg-background border border-border rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none text-white"
+                    className="w-full bg-background border border-border rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none text-text"
                   >
                     {availableCurrencies.map(c => (
                       <option key={c.code} value={c.code}>{c.code}</option>
@@ -180,7 +180,7 @@ export const AddInvestmentForm: React.FC<AddInvestmentFormProps> = ({ onAdd, acc
                       value={exchangeRate}
                       onChange={(e) => setExchangeRate(e.target.value)}
                       placeholder="e.g. 0.92"
-                      className="w-full bg-background border border-primary/50 rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none text-white"
+                      className="w-full bg-background border border-primary/50 rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none text-text"
                       step="0.0001"
                     />
                  </div>

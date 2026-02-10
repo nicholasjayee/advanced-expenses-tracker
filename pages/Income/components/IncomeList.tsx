@@ -35,7 +35,7 @@ export const IncomeList: React.FC<IncomeListProps> = ({ incomes, accounts }) => 
                 <ArrowUpRight size={18} />
               </div>
               <div>
-                <h4 className="font-semibold text-white">{income.description}</h4>
+                <h4 className="font-semibold text-text">{income.description}</h4>
                 <div className="flex flex-wrap items-center gap-3 text-xs text-muted mt-1">
                   <span className="px-2 py-0.5 rounded bg-secondary/10 text-secondary">
                     {income.category}

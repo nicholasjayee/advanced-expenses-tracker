@@ -46,11 +46,11 @@ const Investments: React.FC = () => {
   return (
     <div className="space-y-6">
        <div className="flex justify-between items-center gsap-fade-in">
-        <h2 className="text-3xl font-bold text-white">Investments</h2>
+        <h2 className="text-3xl font-bold text-text">Investments</h2>
         <div className="flex gap-3">
           <button 
             onClick={handleStrategyClick}
-            className="bg-surface hover:bg-white/5 text-white border border-border px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+            className="bg-surface hover:bg-muted/10 text-text border border-border px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
           >
             <Briefcase size={16} /> Strategy
           </button>

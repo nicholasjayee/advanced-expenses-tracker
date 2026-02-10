@@ -63,7 +63,7 @@ export const AddIncomeForm: React.FC<AddIncomeFormProps> = ({ onAdd, accounts })
                 type="date"
                 value={dateStr}
                 onChange={(e) => setDateStr(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-white placeholder-muted/50 appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-text placeholder-muted/50 appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full"
                 required
               />
             </div>
@@ -76,7 +76,7 @@ export const AddIncomeForm: React.FC<AddIncomeFormProps> = ({ onAdd, accounts })
               <select
                 value={selectedAccountId}
                 onChange={(e) => setSelectedAccountId(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-white appearance-none cursor-pointer"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-text appearance-none cursor-pointer"
                 required
               >
                 <option value="" disabled>Select Account</option>
@@ -98,7 +98,7 @@ export const AddIncomeForm: React.FC<AddIncomeFormProps> = ({ onAdd, accounts })
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="e.g. May Salary, Freelance Gig"
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-white placeholder-muted/50"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-text placeholder-muted/50"
                 required
               />
             </div>
@@ -109,7 +109,7 @@ export const AddIncomeForm: React.FC<AddIncomeFormProps> = ({ onAdd, accounts })
             <div className="relative">
               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted flex items-center justify-center w-5">
                  {selectedAccount ? (
-                   <span className="text-sm font-semibold text-white">{getCurrencySymbol(selectedAccount.currency)}</span>
+                   <span className="text-sm font-semibold text-text">{getCurrencySymbol(selectedAccount.currency)}</span>
                  ) : (
                    <DollarSign size={16} />
                  )}
@@ -119,7 +119,7 @@ export const AddIncomeForm: React.FC<AddIncomeFormProps> = ({ onAdd, accounts })
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-white placeholder-muted/50"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-text placeholder-muted/50"
                 required
                 min="0.01"
                 step="0.01"
@@ -139,7 +139,7 @@ export const AddIncomeForm: React.FC<AddIncomeFormProps> = ({ onAdd, accounts })
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-white appearance-none cursor-pointer"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-secondary focus:outline-none text-text appearance-none cursor-pointer"
                 required
               >
                 <option value="" disabled>Select Category</option>

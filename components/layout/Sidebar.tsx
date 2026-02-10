@@ -24,10 +24,10 @@ const navItems = [
 
 export const Sidebar: React.FC = () => {
   return (
-    <aside className="w-64 bg-surface border-r border-border h-screen fixed left-0 top-0 flex flex-col z-20">
+    <aside className="w-64 bg-surface border-r border-border h-screen fixed left-0 top-0 flex flex-col z-20 transition-colors duration-300">
       <div className="p-6 border-b border-border flex items-center gap-2">
         <Activity className="text-primary" />
-        <h1 className="text-xl font-bold tracking-tight text-white">FinNexus</h1>
+        <h1 className="text-xl font-bold tracking-tight text-text">FinNexus</h1>
       </div>
       
       <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
@@ -39,7 +39,7 @@ export const Sidebar: React.FC = () => {
               `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                 isActive
                   ? 'bg-primary/10 text-primary font-medium'
-                  : 'text-muted hover:text-white hover:bg-white/5'
+                  : 'text-muted hover:text-text hover:bg-background'
               }`
             }
           >
@@ -56,7 +56,7 @@ export const Sidebar: React.FC = () => {
             `flex items-center gap-3 px-4 py-3 w-full rounded-lg transition-colors ${
               isActive
                 ? 'bg-primary/10 text-primary font-medium'
-                : 'text-muted hover:text-white hover:bg-white/5'
+                : 'text-muted hover:text-text hover:bg-background'
             }`
           }
         >

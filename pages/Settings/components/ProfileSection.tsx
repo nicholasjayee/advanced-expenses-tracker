@@ -48,7 +48,7 @@ export const ProfileSection: React.FC = () => {
                       type="text" 
                       value={formData.name}
                       onChange={(e) => handleChange('name', e.target.value)}
-                      className="w-full bg-background border border-border rounded-lg p-2.5 text-white focus:border-primary focus:outline-none"
+                      className="w-full bg-background border border-border rounded-lg p-2.5 text-text focus:border-primary focus:outline-none"
                     />
                  </div>
                  <div>
@@ -57,7 +57,7 @@ export const ProfileSection: React.FC = () => {
                       type="text" 
                       value={formData.username}
                       onChange={(e) => handleChange('username', e.target.value)}
-                      className="w-full bg-background border border-border rounded-lg p-2.5 text-white focus:border-primary focus:outline-none"
+                      className="w-full bg-background border border-border rounded-lg p-2.5 text-text focus:border-primary focus:outline-none"
                     />
                  </div>
               </div>
@@ -70,7 +70,7 @@ export const ProfileSection: React.FC = () => {
                       type="email" 
                       value={formData.email}
                       onChange={(e) => handleChange('email', e.target.value)}
-                      className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-white focus:border-primary focus:outline-none"
+                      className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-text focus:border-primary focus:outline-none"
                     />
                  </div>
               </div>
@@ -80,7 +80,7 @@ export const ProfileSection: React.FC = () => {
                  <textarea 
                     value={formData.bio}
                     onChange={(e) => handleChange('bio', e.target.value)}
-                    className="w-full bg-background border border-border rounded-lg p-2.5 text-white focus:border-primary focus:outline-none h-24 resize-none"
+                    className="w-full bg-background border border-border rounded-lg p-2.5 text-text focus:border-primary focus:outline-none h-24 resize-none"
                  />
               </div>
 

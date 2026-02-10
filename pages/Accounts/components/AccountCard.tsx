@@ -38,19 +38,19 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account, onEdit, onDel
               {getIcon(account.type)}
             </div>
             <div>
-              <h3 className="font-semibold text-white text-lg leading-tight">{account.name}</h3>
+              <h3 className="font-semibold text-text text-lg leading-tight">{account.name}</h3>
               <p className="text-xs text-muted mt-1">{ACCOUNT_TYPE_LABELS[account.type]}</p>
             </div>
           </div>
           
           <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 rounded-lg p-1">
-            <button onClick={() => onEdit(account)} className="p-1.5 hover:bg-white/10 rounded-md text-muted hover:text-white transition-colors" title="Edit">
+            <button onClick={() => onEdit(account)} className="p-1.5 hover:bg-muted/10 rounded-md text-muted hover:text-text transition-colors" title="Edit">
               <Edit2 size={14} />
             </button>
-            <button onClick={() => onConvert(account)} className="p-1.5 hover:bg-white/10 rounded-md text-muted hover:text-blue-400 transition-colors" title="Convert Currency">
+            <button onClick={() => onConvert(account)} className="p-1.5 hover:bg-muted/10 rounded-md text-muted hover:text-blue-400 transition-colors" title="Convert Currency">
               <RefreshCcw size={14} />
             </button>
-            <button onClick={() => onDelete(account.id)} className="p-1.5 hover:bg-white/10 rounded-md text-muted hover:text-danger transition-colors" title="Delete">
+            <button onClick={() => onDelete(account.id)} className="p-1.5 hover:bg-muted/10 rounded-md text-muted hover:text-danger transition-colors" title="Delete">
               <Trash2 size={14} />
             </button>
           </div>
@@ -59,7 +59,7 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account, onEdit, onDel
         {/* Balance */}
         <div className="mt-2">
            <p className="text-xs text-muted mb-1">Current Balance</p>
-           <h2 className={`text-2xl font-bold ${account.balance < 0 ? 'text-danger' : 'text-white'}`}>
+           <h2 className={`text-2xl font-bold ${account.balance < 0 ? 'text-danger' : 'text-text'}`}>
              {account.balance < 0 ? '-' : ''}{getCurrencySymbol(account.currency)}{Math.abs(account.balance).toLocaleString()} <span className="text-sm font-normal text-muted">{account.currency}</span>
            </h2>
         </div>
@@ -68,7 +68,7 @@ export const AccountCard: React.FC<AccountCardProps> = ({ account, onEdit, onDel
         <div className="mt-6 pt-4 border-t border-border grid grid-cols-3 gap-2">
            <button 
              onClick={() => onTransfer(account.id)}
-             className="flex items-center justify-center gap-1.5 text-xs font-medium text-muted hover:text-white hover:bg-white/5 py-2 rounded-lg transition-colors border border-transparent hover:border-border"
+             className="flex items-center justify-center gap-1.5 text-xs font-medium text-muted hover:text-text hover:bg-muted/10 py-2 rounded-lg transition-colors border border-transparent hover:border-border"
              title="Transfer"
            >
              <ArrowRightLeft size={14} /> Transfer

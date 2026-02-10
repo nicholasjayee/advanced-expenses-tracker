@@ -22,7 +22,7 @@ export const InvestmentHeader: React.FC<InvestmentHeaderProps> = ({ performance 
           <p className="text-sm text-muted mb-1 flex items-center gap-2">
             <Layers size={14} /> Total Invested Cost
           </p>
-          <h2 className="text-3xl font-bold text-white">${totalInvested.toLocaleString()}</h2>
+          <h2 className="text-3xl font-bold text-text">${totalInvested.toLocaleString()}</h2>
           <p className="text-xs text-muted mt-2">
             Capital Deployed
           </p>
@@ -37,7 +37,7 @@ export const InvestmentHeader: React.FC<InvestmentHeaderProps> = ({ performance 
           <p className="text-sm text-muted mb-1 flex items-center gap-2">
             <DollarSign size={14} /> Current Market Value
           </p>
-          <h2 className="text-3xl font-bold text-white">${currentValue.toLocaleString()}</h2>
+          <h2 className="text-3xl font-bold text-text">${currentValue.toLocaleString()}</h2>
           <p className="text-xs text-muted mt-2">
              All Assets Converted to USD
           </p>

@@ -19,8 +19,8 @@ export const IncomeCategories: React.FC<IncomeCategoriesProps> = ({ incomes }) =
           {categoryStats.map((cat, index) => (
             <div key={cat.name} className="group">
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-muted group-hover:text-white transition-colors">{cat.name}</span>
-                <span className="text-white font-medium">${cat.value.toFixed(2)}</span>
+                <span className="text-muted group-hover:text-text transition-colors">{cat.name}</span>
+                <span className="text-text font-medium">${cat.value.toFixed(2)}</span>
               </div>
               <div className="h-2 w-full bg-background border border-border rounded-full overflow-hidden">
                 <div

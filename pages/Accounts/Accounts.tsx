@@ -72,13 +72,13 @@ const Accounts: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-end gsap-fade-in">
         <div>
-          <h2 className="text-3xl font-bold text-white">Accounts</h2>
+          <h2 className="text-3xl font-bold text-text">Accounts</h2>
           <p className="text-muted">Manage your cash sources, banks, and liabilities.</p>
         </div>
         <div className="flex gap-3">
            <button 
              onClick={() => setIsTransferModalOpen(true)}
-             className="bg-surface hover:bg-white/5 text-white border border-border px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+             className="bg-surface hover:bg-muted/10 text-text border border-border px-4 py-2 rounded-lg text-sm font-medium transition-colors"
            >
              Quick Transfer
            </button>
@@ -111,10 +111,10 @@ const Accounts: React.FC = () => {
           onClick={() => setIsAddModalOpen(true)}
           className="group border-2 border-dashed border-border rounded-xl p-6 flex flex-col items-center justify-center gap-4 hover:border-primary/50 hover:bg-surface/50 transition-all min-h-[220px]"
         >
-          <div className="w-12 h-12 rounded-full bg-surface border border-border flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+          <div className="w-12 h-12 rounded-full bg-surface border border-border flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors text-muted">
             <Plus size={24} />
           </div>
-          <span className="text-muted font-medium group-hover:text-white">Connect New Account</span>
+          <span className="text-muted font-medium group-hover:text-text">Connect New Account</span>
         </button>
       </div>
 

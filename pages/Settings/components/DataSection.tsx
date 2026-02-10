@@ -99,8 +99,8 @@ export const DataSection: React.FC = () => {
                <Database size={24} />
             </div>
             <div>
-               <h4 className="font-semibold text-white">Your data is yours.</h4>
-               <p className="text-sm text-primary/80 mt-1">
+               <h4 className="font-semibold text-text">Your data is yours.</h4>
+               <p className="text-sm text-text/80 mt-1">
                   FinNexus stores your data in local memory. 
                   Export your data regularly to create backups. Import JSON files to restore previous states.
                </p>
@@ -111,13 +111,13 @@ export const DataSection: React.FC = () => {
             {/* Export Button */}
             <button 
                onClick={handleExport}
-               className="flex flex-col items-center justify-center gap-3 p-6 bg-surface border border-border rounded-xl hover:bg-white/5 hover:border-primary/50 transition-all group"
+               className="flex flex-col items-center justify-center gap-3 p-6 bg-surface border border-border rounded-xl hover:bg-muted/5 hover:border-primary/50 transition-all group"
             >
                <div className="w-12 h-12 rounded-full bg-background flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Download size={24} className="text-primary" />
                </div>
                <div className="text-center">
-                  <h4 className="font-medium text-white">Export Data</h4>
+                  <h4 className="font-medium text-text">Export Data</h4>
                   <p className="text-xs text-muted mt-1">Download JSON backup</p>
                </div>
             </button>
@@ -126,7 +126,7 @@ export const DataSection: React.FC = () => {
             <button 
                onClick={handleImportClick}
                disabled={importStatus === 'loading'}
-               className="flex flex-col items-center justify-center gap-3 p-6 bg-surface border border-border rounded-xl hover:bg-white/5 hover:border-secondary/50 transition-all group"
+               className="flex flex-col items-center justify-center gap-3 p-6 bg-surface border border-border rounded-xl hover:bg-muted/5 hover:border-secondary/50 transition-all group"
             >
                <input 
                  type="file" 
@@ -147,7 +147,7 @@ export const DataSection: React.FC = () => {
                   )}
                </div>
                <div className="text-center">
-                  <h4 className="font-medium text-white">
+                  <h4 className="font-medium text-text">
                      {importStatus === 'loading' ? 'Importing...' : 'Import Data'}
                   </h4>
                   <p className={`text-xs mt-1 ${importStatus === 'error' ? 'text-danger' : importStatus === 'success' ? 'text-secondary' : 'text-muted'}`}>
@@ -164,7 +164,7 @@ export const DataSection: React.FC = () => {
                <AlertTriangle size={24} />
             </div>
             <div className="flex-1">
-               <h3 className="text-lg font-semibold text-white">Danger Zone</h3>
+               <h3 className="text-lg font-semibold text-text">Danger Zone</h3>
                <p className="text-sm text-muted mt-1 mb-4">
                   Permanently delete all your data and reset the application to its initial state (empty). This action cannot be undone unless you have a backup.
                </p>

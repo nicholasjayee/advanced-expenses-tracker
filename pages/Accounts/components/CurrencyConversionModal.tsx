@@ -30,8 +30,8 @@ export const CurrencyConversionModal: React.FC<CurrencyConversionModalProps> = (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="bg-surface border border-border rounded-xl w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200">
         <div className="flex justify-between items-center p-5 border-b border-border">
-          <h2 className="text-xl font-bold text-white">Convert Currency</h2>
-          <button onClick={onClose} className="text-muted hover:text-white transition-colors">
+          <h2 className="text-xl font-bold text-text">Convert Currency</h2>
+          <button onClick={onClose} className="text-muted hover:text-text transition-colors">
             <X size={20} />
           </button>
         </div>
@@ -47,14 +47,14 @@ export const CurrencyConversionModal: React.FC<CurrencyConversionModalProps> = (
           <div className="flex items-center justify-between gap-2">
              <div className="bg-background border border-border rounded-lg p-3 flex-1 text-center">
                 <span className="block text-xs text-muted">Current</span>
-                <span className="text-lg font-bold text-white">{account.currency}</span>
+                <span className="text-lg font-bold text-text">{account.currency}</span>
              </div>
              <ArrowRight className="text-muted" />
              <div className="flex-1">
                 <select 
                   value={targetCurrency}
                   onChange={(e) => setTargetCurrency(e.target.value)}
-                  className="w-full bg-background border border-border rounded-lg p-3 text-white focus:border-primary focus:outline-none"
+                  className="w-full bg-background border border-border rounded-lg p-3 text-text focus:border-primary focus:outline-none"
                   required
                 >
                   <option value="" disabled>Select Target</option>
@@ -71,7 +71,7 @@ export const CurrencyConversionModal: React.FC<CurrencyConversionModalProps> = (
                type="number" 
                value={exchangeRate}
                onChange={e => setExchangeRate(e.target.value)}
-               className="w-full bg-background border border-border rounded-lg p-3 text-white focus:border-primary focus:outline-none"
+               className="w-full bg-background border border-border rounded-lg p-3 text-text focus:border-primary focus:outline-none"
                placeholder="e.g. 0.92"
                step="0.0001"
                required
@@ -81,10 +81,10 @@ export const CurrencyConversionModal: React.FC<CurrencyConversionModalProps> = (
           <div className="bg-surface border border-border rounded-lg p-4">
              <div className="flex justify-between items-center mb-1">
                <span className="text-sm text-muted">Current Balance</span>
-               <span className="text-white">{getCurrencySymbol(account.currency)}{account.balance.toLocaleString()}</span>
+               <span className="text-text">{getCurrencySymbol(account.currency)}{account.balance.toLocaleString()}</span>
              </div>
              <div className="flex justify-between items-center border-t border-border mt-2 pt-2">
-               <span className="text-sm font-medium text-white">New Balance</span>
+               <span className="text-sm font-medium text-text">New Balance</span>
                <span className="text-lg font-bold text-secondary">
                  {targetCurrency ? getCurrencySymbol(targetCurrency) : ''}
                  {calculatedBalance.toLocaleString(undefined, { maximumFractionDigits: 2 })}

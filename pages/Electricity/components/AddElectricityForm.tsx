@@ -55,7 +55,7 @@ export const AddElectricityForm: React.FC<AddElectricityFormProps> = ({ onAdd, a
                 type="date"
                 value={dateStr}
                 onChange={(e) => setDateStr(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-accent focus:outline-none text-white appearance-none"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-accent focus:outline-none text-text appearance-none"
                 required
               />
             </div>
@@ -71,7 +71,7 @@ export const AddElectricityForm: React.FC<AddElectricityFormProps> = ({ onAdd, a
                    value={unitsRemaining}
                    onChange={(e) => setUnitsRemaining(e.target.value)}
                    placeholder="Before topup"
-                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-emerald-400 focus:outline-none text-white"
+                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-emerald-400 focus:outline-none text-text"
                    step="0.1"
                  />
                </div>
@@ -85,7 +85,7 @@ export const AddElectricityForm: React.FC<AddElectricityFormProps> = ({ onAdd, a
                    value={units}
                    onChange={(e) => setUnits(e.target.value)}
                    placeholder="0"
-                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-accent focus:outline-none text-white"
+                   className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-accent focus:outline-none text-text"
                    required
                  />
                </div>
@@ -104,7 +104,7 @@ export const AddElectricityForm: React.FC<AddElectricityFormProps> = ({ onAdd, a
                    value={cost}
                    onChange={(e) => setCost(e.target.value)}
                    placeholder="0.00"
-                   className="w-full bg-background border border-border rounded-lg pl-9 p-2.5 text-sm focus:border-accent focus:outline-none text-white"
+                   className="w-full bg-background border border-border rounded-lg pl-9 p-2.5 text-sm focus:border-accent focus:outline-none text-text"
                    required
                    step="0.01"
                  />
@@ -117,7 +117,7 @@ export const AddElectricityForm: React.FC<AddElectricityFormProps> = ({ onAdd, a
                    <select
                      value={accountId}
                      onChange={(e) => setAccountId(e.target.value)}
-                     className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-accent focus:outline-none text-white appearance-none cursor-pointer"
+                     className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-sm focus:border-accent focus:outline-none text-text appearance-none cursor-pointer"
                      required
                    >
                      <option value="" disabled>Select</option>

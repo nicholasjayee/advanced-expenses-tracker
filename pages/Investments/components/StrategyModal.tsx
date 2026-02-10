@@ -22,11 +22,11 @@ export const StrategyModal: React.FC<StrategyModalProps> = ({ isOpen, onClose, l
               <Sparkles size={20} />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">AI Investment Strategy</h2>
+              <h2 className="text-xl font-bold text-text">AI Investment Strategy</h2>
               <p className="text-xs text-muted">Powered by Gemini 3.0</p>
             </div>
           </div>
-          <button onClick={onClose} className="text-muted hover:text-white transition-colors p-1 rounded-md hover:bg-white/10">
+          <button onClick={onClose} className="text-muted hover:text-text transition-colors p-1 rounded-md hover:bg-muted/10">
             <X size={20} />
           </button>
         </div>
@@ -46,11 +46,11 @@ export const StrategyModal: React.FC<StrategyModalProps> = ({ isOpen, onClose, l
             <div className="prose prose-invert max-w-none">
               <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4 mb-6 flex gap-3 items-start">
                  <Lightbulb className="text-blue-400 shrink-0 mt-0.5" size={18} />
-                 <p className="text-sm text-blue-200/80">
+                 <p className="text-sm text-blue-500/80">
                    This analysis is based on your current holdings, cost basis, and asset class distribution. It is for informational purposes only.
                  </p>
               </div>
-              <div className="whitespace-pre-wrap text-gray-300 leading-relaxed font-light">
+              <div className="whitespace-pre-wrap text-text leading-relaxed font-light">
                 {content}
               </div>
             </div>
@@ -61,7 +61,7 @@ export const StrategyModal: React.FC<StrategyModalProps> = ({ isOpen, onClose, l
         <div className="p-4 border-t border-border bg-surface rounded-b-xl flex justify-end">
           <button 
             onClick={onClose}
-            className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-muted/10 hover:bg-muted/20 text-text rounded-lg text-sm font-medium transition-colors"
           >
             Close Analysis
           </button>

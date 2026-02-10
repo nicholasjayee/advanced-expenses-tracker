@@ -20,7 +20,7 @@ const Settings: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center gsap-fade-in">
         <div>
-          <h2 className="text-3xl font-bold text-white">Settings</h2>
+          <h2 className="text-3xl font-bold text-text">Settings</h2>
           <p className="text-muted">Manage your account and application preferences.</p>
         </div>
       </div>
@@ -36,7 +36,7 @@ const Settings: React.FC = () => {
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all mb-1 ${
                        activeTab === tab.id 
                        ? 'bg-primary text-white shadow-lg shadow-primary/20' 
-                       : 'text-muted hover:text-white hover:bg-white/5'
+                       : 'text-muted hover:text-text hover:bg-muted/10'
                     }`}
                  >
                     <tab.icon size={18} />

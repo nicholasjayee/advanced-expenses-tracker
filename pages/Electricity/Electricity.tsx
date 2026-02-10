@@ -13,7 +13,7 @@ const Electricity: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center gsap-fade-in">
-        <h2 className="text-3xl font-bold text-white">Electricity Usage</h2>
+        <h2 className="text-3xl font-bold text-text">Electricity Usage</h2>
         <div className="flex gap-2">
            <span className="px-3 py-1 bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-sm font-medium flex items-center gap-2">
              <Zap size={14} fill="currentColor"/> Grid Status: Stable
@@ -31,7 +31,7 @@ const Electricity: React.FC = () => {
               <Lightbulb className="text-yellow-500 shrink-0" size={24} />
               <div>
                  <h4 className="font-medium text-yellow-500">Efficiency Insight</h4>
-                 <p className="text-sm text-yellow-200/80">
+                 <p className="text-sm text-yellow-600/80">
                     Your average cost per kWh is <strong>${stats.avgCostPerKwh.toFixed(3)}</strong>. 
                     {stats.trend === 'Rising' 
                       ? " Usage is trending upwards compared to the previous record. Consider checking your AC/Heating settings." 
@@ -54,11 +54,11 @@ const Electricity: React.FC = () => {
                           <Zap size={14} />
                        </div>
                        <div>
-                          <p className="text-sm font-medium text-white">{log.date}</p>
+                          <p className="text-sm font-medium text-text">{log.date}</p>
                           <p className="text-xs text-muted">{log.kwh} kWh</p>
                        </div>
                     </div>
-                    <span className="font-semibold text-white">${log.cost.toFixed(2)}</span>
+                    <span className="font-semibold text-text">${log.cost.toFixed(2)}</span>
                   </div>
                 ))}
               </div>

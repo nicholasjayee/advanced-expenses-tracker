@@ -32,18 +32,18 @@ export const LiabilityList: React.FC<LiabilityListProps> = ({ liabilities, onDel
                 <div className="flex items-start justify-between mb-4">
                    <div className="flex items-center gap-3">
                       <div className="p-2 bg-background rounded-lg border border-border group-hover:border-danger/50 transition-colors">
-                         <Icon className="text-white group-hover:text-danger transition-colors" size={24} />
+                         <Icon className="text-text group-hover:text-danger transition-colors" size={24} />
                       </div>
                       <div>
-                         <h3 className="font-semibold text-white">{item.name}</h3>
+                         <h3 className="font-semibold text-text">{item.name}</h3>
                          <div className="flex items-center gap-2 text-xs text-muted">
-                            <span className="bg-white/5 px-2 py-0.5 rounded">{item.category}</span>
+                            <span className="bg-muted/10 px-2 py-0.5 rounded">{item.category}</span>
                             <span>{item.interestRate}% APR</span>
                          </div>
                       </div>
                    </div>
                    <div className="text-right">
-                       <span className="block text-sm font-bold text-white">{symbol}{item.remainingAmount.toLocaleString()}</span>
+                       <span className="block text-sm font-bold text-text">{symbol}{item.remainingAmount.toLocaleString()}</span>
                        <span className="text-[10px] text-muted">Outstanding</span>
                    </div>
                 </div>
@@ -68,7 +68,7 @@ export const LiabilityList: React.FC<LiabilityListProps> = ({ liabilities, onDel
                    </div>
                    <button 
                      onClick={() => onDelete(item.id)}
-                     className="p-1.5 hover:bg-white/10 rounded text-muted hover:text-danger transition-colors"
+                     className="p-1.5 hover:bg-muted/10 rounded text-muted hover:text-danger transition-colors"
                      title="Delete Liability"
                    >
                       <Trash2 size={16} />

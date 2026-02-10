@@ -12,7 +12,7 @@ const Liabilities: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center gsap-fade-in">
-        <h2 className="text-3xl font-bold text-white">Liabilities</h2>
+        <h2 className="text-3xl font-bold text-text">Liabilities</h2>
       </div>
 
       {/* Summary Stats */}
@@ -24,7 +24,7 @@ const Liabilities: React.FC = () => {
                </div>
                <span className="text-sm text-muted">Total Debt Load</span>
             </div>
-            <h3 className="text-3xl font-bold text-white">${stats.totalDebt.toLocaleString()}</h3>
+            <h3 className="text-3xl font-bold text-text">${stats.totalDebt.toLocaleString()}</h3>
          </Card>
          <DebtStrategy 
             highestAprLiability={stats.highestAprLiability} 

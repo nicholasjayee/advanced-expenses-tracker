@@ -42,7 +42,7 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({ notification
 
   return (
     <div 
-      className={`relative p-4 border-b border-border hover:bg-white/5 transition-colors group cursor-pointer ${notification.isRead ? 'opacity-70' : 'bg-surface'}`}
+      className={`relative p-4 border-b border-border hover:bg-muted/5 transition-colors group cursor-pointer ${notification.isRead ? 'opacity-70' : 'bg-surface'}`}
       onClick={handleClick}
     >
       <div className="flex gap-3 items-start">
@@ -51,14 +51,14 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({ notification
         </div>
         <div className="flex-1 pr-6">
            <div className="flex justify-between items-start">
-              <h4 className={`text-sm font-medium ${notification.isRead ? 'text-muted' : 'text-white'}`}>
+              <h4 className={`text-sm font-medium ${notification.isRead ? 'text-muted' : 'text-text'}`}>
                 {notification.title}
               </h4>
            </div>
            <p className="text-xs text-muted mt-1 leading-relaxed line-clamp-2">
              {notification.message}
            </p>
-           <p className="text-[10px] text-gray-500 mt-2 flex items-center gap-1">
+           <p className="text-[10px] text-muted/70 mt-2 flex items-center gap-1">
              <Clock size={10} /> {formatTime(new Date(notification.timestamp))}
            </p>
         </div>

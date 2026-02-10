@@ -54,8 +54,8 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div className="bg-surface border border-border rounded-xl w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200">
         <div className="flex justify-between items-center p-5 border-b border-border">
-          <h2 className="text-xl font-bold text-white">Transfer Funds</h2>
-          <button onClick={onClose} className="text-muted hover:text-white transition-colors">
+          <h2 className="text-xl font-bold text-text">Transfer Funds</h2>
+          <button onClick={onClose} className="text-muted hover:text-text transition-colors">
             <X size={20} />
           </button>
         </div>
@@ -68,7 +68,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
                   <select 
                     value={fromId}
                     onChange={(e) => setFromId(e.target.value)}
-                    className="w-full bg-background border border-border rounded-lg p-2.5 text-sm text-white focus:border-primary focus:outline-none appearance-none"
+                    className="w-full bg-background border border-border rounded-lg p-2.5 text-sm text-text focus:border-primary focus:outline-none appearance-none"
                     required
                   >
                     <option value="" disabled>Select Source</option>
@@ -90,7 +90,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
                   <select 
                     value={toId}
                     onChange={(e) => setToId(e.target.value)}
-                    className="w-full bg-background border border-border rounded-lg p-2.5 text-sm text-white focus:border-primary focus:outline-none appearance-none"
+                    className="w-full bg-background border border-border rounded-lg p-2.5 text-sm text-text focus:border-primary focus:outline-none appearance-none"
                     required
                   >
                     <option value="" disabled>Select Target</option>
@@ -116,7 +116,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
                    type="number" 
                    value={amount}
                    onChange={e => setAmount(e.target.value)}
-                   className="w-full bg-background border border-border rounded-lg pl-8 p-2.5 text-white focus:border-primary focus:outline-none text-lg font-medium"
+                   className="w-full bg-background border border-border rounded-lg pl-8 p-2.5 text-text focus:border-primary focus:outline-none text-lg font-medium"
                    placeholder="0.00"
                    min="0"
                    step="0.01"
@@ -139,7 +139,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
                       type="number" 
                       value={feeRate}
                       onChange={e => setFeeRate(e.target.value)}
-                      className="w-full bg-background border border-border rounded-lg p-2.5 text-white focus:border-primary focus:outline-none"
+                      className="w-full bg-background border border-border rounded-lg p-2.5 text-text focus:border-primary focus:outline-none"
                       placeholder="0"
                       min="0"
                       step="0.1"
@@ -167,14 +167,14 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
                           type="number" 
                           value={exchangeRate}
                           onChange={e => setExchangeRate(e.target.value)}
-                          className="w-full bg-background border border-primary/50 rounded-lg pl-14 p-2.5 text-white focus:border-primary focus:outline-none"
+                          className="w-full bg-background border border-primary/50 rounded-lg pl-14 p-2.5 text-text focus:border-primary focus:outline-none"
                           placeholder="e.g. 0.85"
                           step="0.0001"
                           required
                         />
                      </div>
                      <div className="flex-none pt-1">
-                        <span className="text-sm font-medium text-white">{selectedTarget?.currency}</span>
+                        <span className="text-sm font-medium text-text">{selectedTarget?.currency}</span>
                      </div>
                   </div>
                   <p className="text-xs text-muted mt-1">
@@ -191,7 +191,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
               <textarea 
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-white focus:border-primary focus:outline-none text-sm min-h-[60px] resize-none"
+                className="w-full bg-background border border-border rounded-lg pl-10 p-2.5 text-text focus:border-primary focus:outline-none text-sm min-h-[60px] resize-none"
                 placeholder="Optional transfer note..."
               />
             </div>
