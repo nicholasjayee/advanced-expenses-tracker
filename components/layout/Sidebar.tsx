@@ -7,12 +7,16 @@ import {
   Zap, 
   CreditCard, 
   Settings,
-  Activity
+  Activity,
+  Landmark,
+  ArrowDownLeft
 } from 'lucide-react';
 
 const navItems = [
   { label: 'Dashboard', path: '/', icon: <LayoutDashboard size={20} /> },
+  { label: 'Accounts', path: '/accounts', icon: <Landmark size={20} /> },
   { label: 'Expenses', path: '/expenses', icon: <Wallet size={20} /> },
+  { label: 'Income', path: '/income', icon: <ArrowDownLeft size={20} /> },
   { label: 'Investments', path: '/investments', icon: <TrendingUp size={20} /> },
   { label: 'Electricity', path: '/electricity', icon: <Zap size={20} /> },
   { label: 'Liabilities', path: '/liabilities', icon: <CreditCard size={20} /> },

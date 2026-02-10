@@ -1,3 +1,4 @@
+
 export enum TransactionType {
   EXPENSE = 'EXPENSE',
   INCOME = 'INCOME',
@@ -10,6 +11,10 @@ export enum AssetClass {
   REAL_ESTATE = 'REAL_ESTATE',
   CRYPTO = 'CRYPTO',
   CASH = 'CASH',
+  INSURANCE = 'INSURANCE',
+  BOND = 'BOND',
+  COMMODITY = 'COMMODITY',
+  OTHER = 'OTHER'
 }
 
 // ExpenseCategory moved to pages/Expenses/types/index.ts
@@ -26,7 +31,7 @@ export interface Transaction {
 export interface Asset {
   id: string;
   name: string;
-  value: number;
+  value: number; // Current Market Value
   type: AssetClass;
   change24h: number;
 }

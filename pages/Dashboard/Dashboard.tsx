@@ -1,60 +1,146 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card } from '../../components/ui/Card';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
-import { ArrowUpRight, ArrowDownRight, Zap, BrainCircuit } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ArrowUpRight, ArrowDownRight, Zap, BrainCircuit, TrendingUp, DollarSign } from 'lucide-react';
 import { getFinancialAdvice } from '../../services/geminiService';
-import { Transaction, Asset, Liability, TransactionType, AssetClass } from '../../types';
-
-// Mock Data
-const data = [
-  { name: 'Jan', income: 4000, expense: 2400 },
-  { name: 'Feb', income: 3000, expense: 1398 },
-  { name: 'Mar', income: 2000, expense: 9800 },
-  { name: 'Apr', income: 2780, expense: 3908 },
-  { name: 'May', income: 1890, expense: 4800 },
-  { name: 'Jun', income: 2390, expense: 3800 },
-  { name: 'Jul', income: 3490, expense: 4300 },
-];
-
-const mockTransactions: Transaction[] = [
-  { id: '1', date: '2023-10-01', amount: 120, description: 'Groceries', category: 'Food', type: TransactionType.EXPENSE },
-  { id: '2', date: '2023-10-02', amount: 50, description: 'Uber', category: 'Transport', type: TransactionType.EXPENSE },
-];
-const mockAssets: Asset[] = [
-  { id: '1', name: 'AAPL', value: 15000, type: AssetClass.EQUITY, change24h: 1.2 },
-];
-const mockLiabilities: Liability[] = [
-  { id: '1', name: 'Mortgage', totalAmount: 300000, remainingAmount: 250000, interestRate: 3.5, dueDate: '2040-01-01' }
-];
+import { useAccounts } from '../../context/AccountContext';
+import { useExpensesContext } from '../../context/ExpenseContext';
+import { useIncomeContext } from '../../context/IncomeContext';
+import { useInvestmentContext } from '../../context/InvestmentContext';
+import { useLiabilitiesContext } from '../../context/LiabilityContext';
+import { ExpenseCategory } from '../Expenses/types';
 
 const Dashboard: React.FC = () => {
-  const [aiInsight, setAiInsight] = useState<string>('Analyzing your financial health...');
+  const { accounts } = useAccounts();
+  const { expenses } = useExpensesContext();
+  const { incomes } = useIncomeContext();
+  const { investments } = useInvestmentContext();
+  const { liabilities } = useLiabilitiesContext();
+  
+  const [aiInsight, setAiInsight] = useState<string>('Connecting to financial core...');
   const [loadingAi, setLoadingAi] = useState(false);
 
+  // --- Statistics Calculation ---
+  
+  // 1. Total Balance
+  const totalBalance = useMemo(() => accounts.reduce((acc, curr) => acc + curr.balance, 0), [accounts]);
+  
+  // 2. Monthly Stats
+  const { monthlyIncome, monthlyExpense, prevMonthIncome, prevMonthExpense } = useMemo(() => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+    const prevMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+    const filterByMonth = (dateStr: string, m: number, y: number) => {
+      const d = new Date(dateStr);
+      return d.getMonth() === m && d.getFullYear() === y;
+    };
+
+    const mIncome = incomes.filter(i => filterByMonth(i.date, currentMonth, currentYear)).reduce((sum, i) => sum + i.amount, 0);
+    const mExpense = expenses.filter(e => filterByMonth(e.date, currentMonth, currentYear)).reduce((sum, e) => sum + e.amount, 0);
+    const pIncome = incomes.filter(i => filterByMonth(i.date, prevMonth, prevMonthYear)).reduce((sum, i) => sum + i.amount, 0);
+    const pExpense = expenses.filter(e => filterByMonth(e.date, prevMonth, prevMonthYear)).reduce((sum, e) => sum + e.amount, 0);
+
+    return { monthlyIncome: mIncome, monthlyExpense: mExpense, prevMonthIncome: pIncome, prevMonthExpense: pExpense };
+  }, [incomes, expenses]);
+
+  // 3. Investments Value
+  const totalInvestmentValue = useMemo(() => investments.reduce((acc, curr) => acc + curr.value, 0), [investments]);
+  
+  // 4. Liabilities
+  const totalLiabilities = useMemo(() => liabilities.reduce((acc, curr) => acc + curr.remainingAmount, 0), [liabilities]);
+
+  // 5. Net Worth
+  const netWorth = totalBalance + totalInvestmentValue - totalLiabilities;
+
+  // 6. Chart Data (Cash Flow)
+  const chartData = useMemo(() => {
+    // Generate data for last 6 months
+    const result = [];
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date();
+      d.setMonth(d.getMonth() - i);
+      const month = d.toLocaleString('default', { month: 'short' });
+      const year = d.getFullYear();
+      
+      const inc = incomes
+        .filter(item => { const date = new Date(item.date); return date.getMonth() === d.getMonth() && date.getFullYear() === year; })
+        .reduce((sum, item) => sum + item.amount, 0);
+      
+      const exp = expenses
+        .filter(item => { const date = new Date(item.date); return date.getMonth() === d.getMonth() && date.getFullYear() === year; })
+        .reduce((sum, item) => sum + item.amount, 0);
+        
+      result.push({ name: month, income: inc, expense: exp });
+    }
+    return result;
+  }, [incomes, expenses]);
+
+  // 7. Electricity Data
+  const electricityData = useMemo(() => {
+    return expenses
+      .filter(e => e.category === ExpenseCategory.ELECTRICITY && e.electricityUnits)
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .slice(-7)
+      .map(e => ({
+        date: new Date(e.date).getDate(), // Day of month
+        kwh: e.electricityUnits || 0
+      }));
+  }, [expenses]);
+  
+  const peakKwh = Math.max(...electricityData.map(d => d.kwh), 0);
+
+  // --- AI Insight ---
   useEffect(() => {
-    // Simulate AI fetch on mount
     const fetchInsight = async () => {
+      if (incomes.length === 0 && expenses.length === 0) {
+          setAiInsight("Start adding income and expenses to receive AI-powered financial advice.");
+          return;
+      }
+      
       setLoadingAi(true);
+      const context = {
+        totalBalance,
+        netWorth,
+        monthlyIncome,
+        monthlyExpense,
+        totalDebt: totalLiabilities,
+        investmentCount: investments.length,
+        savingsRate: monthlyIncome > 0 ? ((monthlyIncome - monthlyExpense) / monthlyIncome) * 100 : 0
+      };
+
       const advice = await getFinancialAdvice(
-        { expenses: mockTransactions, assets: mockAssets, liabilities: mockLiabilities },
-        "Give me a 1-sentence summary of my current financial status based on this data."
+        context,
+        "Analyze my current financial standing based on these metrics. Provide a brief 2-sentence summary with a key recommendation."
       );
       setAiInsight(advice);
       setLoadingAi(false);
     };
-    fetchInsight();
-  }, []);
+
+    // Debounce or just run once on mount (with deps)
+    const timeout = setTimeout(fetchInsight, 1000);
+    return () => clearTimeout(timeout);
+  }, [totalBalance, netWorth, monthlyIncome, monthlyExpense, totalLiabilities]);
+
+
+  const calcChange = (current: number, prev: number) => {
+    if (prev === 0) return current > 0 ? 100 : 0;
+    return ((current - prev) / prev) * 100;
+  };
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-end gsap-fade-in">
         <div>
           <h2 className="text-3xl font-bold text-white">Dashboard</h2>
-          <p className="text-muted">Welcome back, Alex. Here's your financial overview.</p>
+          <p className="text-muted">Overview of your Enterprise Wealth OS.</p>
         </div>
         <div className="flex gap-2">
-           <button className="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-             Download Report
+           <button className="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+             <DollarSign size={16} /> Report
            </button>
         </div>
       </div>
@@ -62,30 +148,55 @@ const Dashboard: React.FC = () => {
       {/* AI Insight Widget */}
       <div className="gsap-fade-in">
         <div className="bg-gradient-to-r from-indigo-900/50 to-purple-900/50 border border-indigo-500/30 rounded-xl p-6 flex items-start gap-4">
-          <div className="p-3 bg-indigo-500/20 rounded-lg">
+          <div className="p-3 bg-indigo-500/20 rounded-lg shrink-0">
             <BrainCircuit className="text-indigo-400" size={24} />
           </div>
           <div>
             <h3 className="text-lg font-semibold text-indigo-100 mb-1">AI Financial Advisor</h3>
             <p className="text-indigo-200/80 text-sm leading-relaxed">
-              {loadingAi ? "Thinking..." : aiInsight}
+              {loadingAi ? "Analyzing real-time market data & spending patterns..." : aiInsight}
             </p>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 gsap-fade-in">
-        <StatCard title="Total Balance" value="$124,592.00" change="+12.5%" isPositive={true} />
-        <StatCard title="Monthly Expenses" value="$4,250.00" change="-2.4%" isPositive={true} />
-        <StatCard title="Investments" value="$85,200.00" change="+5.2%" isPositive={true} />
-        <StatCard title="Net Worth" value="$540,100.00" change="+8.1%" isPositive={true} />
+        <StatCard 
+          title="Total Balance" 
+          value={`$${totalBalance.toLocaleString(undefined, {minimumFractionDigits: 2})}`} 
+          change={`${totalBalance > 0 ? '+' : ''}Active`} 
+          isPositive={totalBalance >= 0} 
+          icon={<DollarSign size={20} />}
+        />
+        <StatCard 
+          title="Monthly Expenses" 
+          value={`$${monthlyExpense.toLocaleString()}`} 
+          change={`${calcChange(monthlyExpense, prevMonthExpense).toFixed(1)}%`} 
+          isPositive={monthlyExpense < prevMonthExpense} 
+          icon={<ArrowDownRight size={20} />}
+          footer="vs last month"
+        />
+        <StatCard 
+          title="Investments" 
+          value={`$${totalInvestmentValue.toLocaleString()}`} 
+          change={`${investments.length} Assets`} 
+          isPositive={true} 
+          icon={<TrendingUp size={20} />}
+        />
+        <StatCard 
+          title="Net Worth" 
+          value={`$${netWorth.toLocaleString()}`} 
+          change={`Debt: $${totalLiabilities.toLocaleString()}`} 
+          isPositive={netWorth > 0} 
+          icon={<BrainCircuit size={20} />} // Reusing icon as placeholder
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 gsap-fade-in">
-        <Card className="lg:col-span-2" title="Cash Flow">
+        <Card className="lg:col-span-2" title="Cash Flow Analysis (6 Months)">
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data}>
+              <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
@@ -110,42 +221,64 @@ const Dashboard: React.FC = () => {
           </div>
         </Card>
 
-        <Card title="Electricity Usage (Last 7 Days)">
-           <div className="h-[300px] w-full flex items-end justify-between gap-2">
-              {[45, 32, 55, 48, 38, 62, 40].map((h, i) => (
-                <div key={i} className="w-full bg-surface relative group">
-                  <div 
-                    className="absolute bottom-0 w-full bg-accent/80 rounded-t-sm transition-all duration-500 hover:bg-accent"
-                    style={{ height: `${h}%` }}
-                  >
-                     <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-surface border border-border px-2 py-1 rounded text-xs whitespace-nowrap z-10">
-                        {h} kWh
-                     </div>
-                  </div>
-                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-muted">
-                    {['M','T','W','T','F','S','S'][i]}
-                  </div>
+        <Card title="Recent Energy Usage">
+           {electricityData.length > 0 ? (
+             <>
+               <div className="h-[300px] w-full flex items-end justify-between gap-2 px-2">
+                  {electricityData.map((data, i) => {
+                    const height = peakKwh > 0 ? (data.kwh / peakKwh) * 100 : 0;
+                    return (
+                      <div key={i} className="w-full bg-surface relative group flex flex-col justify-end h-full">
+                        <div 
+                          className="w-full bg-accent/80 rounded-t-sm transition-all duration-500 hover:bg-accent min-h-[4px]"
+                          style={{ height: `${height}%` }}
+                        >
+                           <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-surface border border-border px-2 py-1 rounded text-xs whitespace-nowrap z-10 pointer-events-none">
+                              {data.kwh} kWh
+                           </div>
+                        </div>
+                        <div className="text-center mt-2 text-xs text-muted">
+                          {data.date}
+                        </div>
+                      </div>
+                    );
+                  })}
+               </div>
+               <div className="mt-4 flex items-center justify-between text-sm border-t border-border pt-3">
+                 <span className="text-muted flex items-center gap-2"><Zap size={14}/> Peak in Period</span>
+                 <span className="font-semibold text-accent">{peakKwh} kWh</span>
+               </div>
+             </>
+           ) : (
+             <div className="h-[300px] flex items-center justify-center text-muted text-center p-4">
+                <div className="flex flex-col items-center gap-2">
+                   <Zap size={32} className="text-muted/20" />
+                   <p>No recent electricity logs found.</p>
+                   <p className="text-xs">Add records in the Electricity page.</p>
                 </div>
-              ))}
-           </div>
-           <div className="mt-8 flex items-center justify-between text-sm">
-             <span className="text-muted flex items-center gap-2"><Zap size={14}/> Peak Usage</span>
-             <span className="font-semibold text-accent">62 kWh</span>
-           </div>
+             </div>
+           )}
         </Card>
       </div>
     </div>
   );
 };
 
-const StatCard = ({ title, value, change, isPositive }: { title: string, value: string, change: string, isPositive: boolean }) => (
+const StatCard = ({ title, value, change, isPositive, icon, footer }: { title: string, value: string, change: string, isPositive: boolean, icon: React.ReactNode, footer?: string }) => (
   <Card>
-    <p className="text-muted text-sm font-medium">{title}</p>
-    <h3 className="text-2xl font-bold text-white mt-2">{value}</h3>
-    <div className={`flex items-center gap-1 mt-2 text-sm ${isPositive ? 'text-secondary' : 'text-danger'}`}>
+    <div className="flex justify-between items-start">
+      <div>
+        <p className="text-muted text-sm font-medium">{title}</p>
+        <h3 className="text-2xl font-bold text-white mt-2">{value}</h3>
+      </div>
+      <div className={`p-2 rounded-lg ${isPositive ? 'bg-secondary/10 text-secondary' : 'bg-danger/10 text-danger'}`}>
+        {icon}
+      </div>
+    </div>
+    <div className={`flex items-center gap-1 mt-3 text-sm ${isPositive ? 'text-secondary' : 'text-danger'}`}>
       {isPositive ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
       <span>{change}</span>
-      <span className="text-muted ml-1">vs last month</span>
+      {footer && <span className="text-muted ml-1">{footer}</span>}
     </div>
   </Card>
 );

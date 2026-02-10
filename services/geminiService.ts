@@ -8,26 +8,29 @@ const apiKey = process.env.API_KEY || ''; // Ensure API key is available
 const getAiClient = () => new GoogleGenAI({ apiKey });
 
 export const getFinancialAdvice = async (
-  context: {
-    expenses: Transaction[];
-    assets: Asset[];
-    liabilities: Liability[];
-  },
+  context: any,
   query: string
 ): Promise<string> => {
   if (!apiKey) return "API Key not configured. Unable to generate insights.";
 
   try {
     const ai = getAiClient();
+    
+    // Construct a context-aware prompt
     const prompt = `
-      You are an expert financial advisor. Analyze the following financial data JSON and answer the user's query briefly and professionally.
+      You are an expert financial advisor and portfolio manager. 
+      Analyze the following financial data provided in JSON format.
       
-      Data:
+      Data Context:
       ${JSON.stringify(context, null, 2)}
       
-      User Query: "${query}"
+      User Request: "${query}"
       
-      Keep the advice actionable, concise, and professional. Return plain text only.
+      Guidelines:
+      1. Be specific and actionable.
+      2. If analyzing investments, comment on diversification, risk exposure, and potential rebalancing.
+      3. Use professional but accessible language.
+      4. Format the response with clear headings or bullet points using Markdown-like spacing (no HTML).
     `;
 
     const response = await ai.models.generateContent({
