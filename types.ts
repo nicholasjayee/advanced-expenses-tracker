@@ -58,3 +58,15 @@ export interface NavItem {
   path: string;
   icon: React.ReactNode;
 }
+
+export type NotificationType = 'INFO' | 'SUCCESS' | 'WARNING' | 'ERROR';
+
+export interface AppNotification {
+  id: string;
+  title: string;
+  message: string;
+  type: NotificationType;
+  timestamp: Date;
+  isRead: boolean;
+  link?: string; // Optional link to a page (e.g. /liabilities)
+}

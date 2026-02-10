@@ -9,6 +9,8 @@ import { ExpenseProvider } from './context/ExpenseContext';
 import { LiabilityProvider } from './context/LiabilityContext';
 import { IncomeProvider } from './context/IncomeContext';
 import { InvestmentProvider } from './context/InvestmentContext';
+import { NotificationProvider } from './context/NotificationContext';
+import { SettingsProvider } from './context/SettingsContext';
 
 // Lazy load pages to simulate Next.js code splitting
 const Dashboard = React.lazy(() => import('./pages/Dashboard/Dashboard'));
@@ -18,6 +20,7 @@ const Income = React.lazy(() => import('./pages/Income/Income'));
 const Investments = React.lazy(() => import('./pages/Investments/Investments'));
 const Electricity = React.lazy(() => import('./pages/Electricity/Electricity'));
 const Liabilities = React.lazy(() => import('./pages/Liabilities/Liabilities'));
+const Settings = React.lazy(() => import('./pages/Settings/Settings'));
 
 // Error Boundary Component (Simulating error.tsx)
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
@@ -54,58 +57,67 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
 const App: React.FC = () => {
   return (
     <HashRouter>
-      <AccountProvider>
-        <LiabilityProvider>
-          <IncomeProvider>
-            <InvestmentProvider>
-              <ExpenseProvider>
-                <ErrorBoundary>
-                  <Routes>
-                    <Route path="/" element={<RootLayout />}>
-                      <Route index element={
-                        <Suspense fallback={<Loader />}>
-                          <Dashboard />
-                        </Suspense>
-                      } />
-                      <Route path="accounts" element={
-                        <Suspense fallback={<Loader />}>
-                          <Accounts />
-                        </Suspense>
-                      } />
-                      <Route path="expenses" element={
-                        <Suspense fallback={<Loader />}>
-                          <Expenses />
-                        </Suspense>
-                      } />
-                      <Route path="income" element={
-                        <Suspense fallback={<Loader />}>
-                          <Income />
-                        </Suspense>
-                      } />
-                      <Route path="investments" element={
-                        <Suspense fallback={<Loader />}>
-                          <Investments />
-                        </Suspense>
-                      } />
-                      <Route path="electricity" element={
-                        <Suspense fallback={<Loader />}>
-                          <Electricity />
-                        </Suspense>
-                      } />
-                      <Route path="liabilities" element={
-                        <Suspense fallback={<Loader />}>
-                          <Liabilities />
-                        </Suspense>
-                      } />
-                      <Route path="*" element={<NotFound />} />
-                    </Route>
-                  </Routes>
-                </ErrorBoundary>
-              </ExpenseProvider>
-            </InvestmentProvider>
-          </IncomeProvider>
-        </LiabilityProvider>
-      </AccountProvider>
+      <SettingsProvider>
+        <NotificationProvider>
+          <AccountProvider>
+            <LiabilityProvider>
+              <IncomeProvider>
+                <InvestmentProvider>
+                  <ExpenseProvider>
+                    <ErrorBoundary>
+                      <Routes>
+                        <Route path="/" element={<RootLayout />}>
+                          <Route index element={
+                            <Suspense fallback={<Loader />}>
+                              <Dashboard />
+                            </Suspense>
+                          } />
+                          <Route path="accounts" element={
+                            <Suspense fallback={<Loader />}>
+                              <Accounts />
+                            </Suspense>
+                          } />
+                          <Route path="expenses" element={
+                            <Suspense fallback={<Loader />}>
+                              <Expenses />
+                            </Suspense>
+                          } />
+                          <Route path="income" element={
+                            <Suspense fallback={<Loader />}>
+                              <Income />
+                            </Suspense>
+                          } />
+                          <Route path="investments" element={
+                            <Suspense fallback={<Loader />}>
+                              <Investments />
+                            </Suspense>
+                          } />
+                          <Route path="electricity" element={
+                            <Suspense fallback={<Loader />}>
+                              <Electricity />
+                            </Suspense>
+                          } />
+                          <Route path="liabilities" element={
+                            <Suspense fallback={<Loader />}>
+                              <Liabilities />
+                            </Suspense>
+                          } />
+                          <Route path="settings" element={
+                            <Suspense fallback={<Loader />}>
+                              <Settings />
+                            </Suspense>
+                          } />
+                          <Route path="*" element={<NotFound />} />
+                        </Route>
+                      </Routes>
+                    </ErrorBoundary>
+                  </ExpenseProvider>
+                </InvestmentProvider>
+              </IncomeProvider>
+            </LiabilityProvider>
+          </AccountProvider>
+        </NotificationProvider>
+      </SettingsProvider>
     </HashRouter>
   );
 };

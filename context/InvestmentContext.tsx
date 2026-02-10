@@ -17,6 +17,8 @@ interface InvestmentContextType {
     quantity: number,
     purchaseDate: Date
   ) => void;
+  importData: (data: Investment[]) => void;
+  clearData: () => void;
 }
 
 const InvestmentContext = createContext<InvestmentContextType | undefined>(undefined);
@@ -69,8 +71,16 @@ export const InvestmentProvider: React.FC<{ children: ReactNode }> = ({ children
 
   }, [getAccountById, updateAccount]);
 
+  const importData = useCallback((data: Investment[]) => {
+    setInvestments(data);
+  }, []);
+
+  const clearData = useCallback(() => {
+    setInvestments([]);
+  }, []);
+
   return (
-    <InvestmentContext.Provider value={{ investments, addInvestment }}>
+    <InvestmentContext.Provider value={{ investments, addInvestment, importData, clearData }}>
       {children}
     </InvestmentContext.Provider>
   );

@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { TransactionType } from '../types.ts';
 import { Expense, ExpenseCategory } from '../pages/Expenses/types/index.ts';
@@ -29,6 +30,8 @@ interface ExpenseContextType {
     unitsRemaining?: number,
     liabilityId?: string
   ) => Promise<void>;
+  importData: (data: Expense[]) => void;
+  clearData: () => void;
 }
 
 const ExpenseContext = createContext<ExpenseContextType | undefined>(undefined);
@@ -101,8 +104,16 @@ export const ExpenseProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   }, [getAccountById, updateAccount, makePayment]);
 
+  const importData = useCallback((data: Expense[]) => {
+    setExpenses(data);
+  }, []);
+
+  const clearData = useCallback(() => {
+    setExpenses([]);
+  }, []);
+
   return (
-    <ExpenseContext.Provider value={{ expenses, isCategorizing, addExpense }}>
+    <ExpenseContext.Provider value={{ expenses, isCategorizing, addExpense, importData, clearData }}>
       {children}
     </ExpenseContext.Provider>
   );

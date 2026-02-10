@@ -15,6 +15,8 @@ const initialIncome: Income[] = [
 interface IncomeContextType {
   incomes: Income[];
   addIncome: (description: string, amount: number, date: Date, accountId: string, category: string) => Promise<void>;
+  importData: (data: Income[]) => void;
+  clearData: () => void;
 }
 
 const IncomeContext = createContext<IncomeContextType | undefined>(undefined);
@@ -60,8 +62,16 @@ export const IncomeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }
   }, [getAccountById, updateAccount]);
 
+  const importData = useCallback((data: Income[]) => {
+    setIncomes(data);
+  }, []);
+
+  const clearData = useCallback(() => {
+    setIncomes([]);
+  }, []);
+
   return (
-    <IncomeContext.Provider value={{ incomes, addIncome }}>
+    <IncomeContext.Provider value={{ incomes, addIncome, importData, clearData }}>
       {children}
     </IncomeContext.Provider>
   );

@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { Account, initialAccounts, AccountType } from '../data/accounts.ts';
 
@@ -11,6 +12,8 @@ interface AccountContextType {
   withdrawFromAccount: (id: string, amount: number, description?: string) => void;
   convertAccountCurrency: (id: string, targetCurrency: string, exchangeRate: number) => void;
   getAccountById: (id: string) => Account | undefined;
+  importData: (data: Account[]) => void;
+  clearData: () => void;
 }
 
 const AccountContext = createContext<AccountContextType | undefined>(undefined);
@@ -43,7 +46,6 @@ export const AccountProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, []);
 
   const transferFunds = useCallback((fromId: string, toId: string, amount: number, feeRate: number, exchangeRate: number = 1, description?: string) => {
-    // In a real app, we would log 'description' to a transaction history here.
     console.log(`Transfer Reason: ${description}`);
     
     setAccounts(prev => {
@@ -71,7 +73,6 @@ export const AccountProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, []);
 
   const topUpAccount = useCallback((id: string, amount: number, description?: string) => {
-    // In a real app, we would log 'description' to a transaction history here.
     console.log(`TopUp Reason: ${description}`);
 
     setAccounts(prev => prev.map(acc => 
@@ -80,7 +81,6 @@ export const AccountProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, []);
 
   const withdrawFromAccount = useCallback((id: string, amount: number, description?: string) => {
-    // In a real app, we would log 'description' to a transaction history here.
     console.log(`Withdraw Reason: ${description}`);
 
     setAccounts(prev => prev.map(acc => 
@@ -100,6 +100,14 @@ export const AccountProvider: React.FC<{ children: ReactNode }> = ({ children })
     return accounts.find(acc => acc.id === id);
   }, [accounts]);
 
+  const importData = useCallback((data: Account[]) => {
+    setAccounts(data);
+  }, []);
+
+  const clearData = useCallback(() => {
+    setAccounts([]);
+  }, []);
+
   return (
     <AccountContext.Provider value={{ 
       accounts, 
@@ -110,7 +118,9 @@ export const AccountProvider: React.FC<{ children: ReactNode }> = ({ children })
       topUpAccount,
       withdrawFromAccount,
       convertAccountCurrency,
-      getAccountById 
+      getAccountById,
+      importData,
+      clearData
     }}>
       {children}
     </AccountContext.Provider>

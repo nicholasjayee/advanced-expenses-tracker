@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { Liability, LiabilityCategory } from '../pages/Liabilities/types/index.ts';
 
@@ -14,6 +15,8 @@ interface LiabilityContextType {
   deleteLiability: (id: string) => void;
   makePayment: (id: string, amount: number) => void;
   getLiabilityById: (id: string) => Liability | undefined;
+  importData: (data: Liability[]) => void;
+  clearData: () => void;
 }
 
 const LiabilityContext = createContext<LiabilityContextType | undefined>(undefined);
@@ -58,6 +61,14 @@ export const LiabilityProvider: React.FC<{ children: ReactNode }> = ({ children 
     return liabilities.find(l => l.id === id);
   }, [liabilities]);
 
+  const importData = useCallback((data: Liability[]) => {
+    setLiabilities(data);
+  }, []);
+
+  const clearData = useCallback(() => {
+    setLiabilities([]);
+  }, []);
+
   return (
     <LiabilityContext.Provider value={{ 
       liabilities, 
@@ -65,7 +76,9 @@ export const LiabilityProvider: React.FC<{ children: ReactNode }> = ({ children 
       updateLiability, 
       deleteLiability, 
       makePayment,
-      getLiabilityById 
+      getLiabilityById,
+      importData,
+      clearData
     }}>
       {children}
     </LiabilityContext.Provider>

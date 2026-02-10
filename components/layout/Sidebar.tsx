@@ -50,10 +50,19 @@ export const Sidebar: React.FC = () => {
       </nav>
 
       <div className="p-4 border-t border-border">
-        <button className="flex items-center gap-3 px-4 py-3 text-muted hover:text-white w-full rounded-lg hover:bg-white/5 transition-colors">
+        <NavLink 
+          to="/settings"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 w-full rounded-lg transition-colors ${
+              isActive
+                ? 'bg-primary/10 text-primary font-medium'
+                : 'text-muted hover:text-white hover:bg-white/5'
+            }`
+          }
+        >
           <Settings size={20} />
           <span>Settings</span>
-        </button>
+        </NavLink>
       </div>
     </aside>
   );
