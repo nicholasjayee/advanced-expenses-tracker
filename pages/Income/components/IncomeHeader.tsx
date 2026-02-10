@@ -1,7 +1,12 @@
 import React from 'react';
 import { TrendingUp } from 'lucide-react';
 
-export const IncomeHeader: React.FC = () => {
+interface IncomeHeaderProps {
+  viewMode: 'list' | 'chart';
+  setViewMode: (mode: 'list' | 'chart') => void;
+}
+
+export const IncomeHeader: React.FC<IncomeHeaderProps> = ({ viewMode, setViewMode }) => {
   return (
     <div className="flex justify-between items-center gsap-fade-in">
       <div className="flex items-center gap-3">
@@ -10,9 +15,19 @@ export const IncomeHeader: React.FC = () => {
              <TrendingUp size={12} /> Cash Flow Positive
         </span>
       </div>
-      <div className="bg-surface border border-border rounded-lg p-1 text-xs font-medium text-muted">
-        <span className="px-2 py-1 bg-primary/10 text-primary rounded cursor-default">List View</span>
-        <span className="px-2 py-1 hover:text-text cursor-pointer transition-colors">Chart View</span>
+      <div className="bg-surface border border-border rounded-lg p-1 text-xs font-medium text-muted flex">
+        <button 
+            onClick={() => setViewMode('list')}
+            className={`px-3 py-1.5 rounded transition-all ${viewMode === 'list' ? 'bg-primary/10 text-primary shadow-sm' : 'hover:text-text'}`}
+        >
+            List View
+        </button>
+        <button 
+            onClick={() => setViewMode('chart')}
+            className={`px-3 py-1.5 rounded transition-all ${viewMode === 'chart' ? 'bg-primary/10 text-primary shadow-sm' : 'hover:text-text'}`}
+        >
+            Chart View
+        </button>
       </div>
     </div>
   );
