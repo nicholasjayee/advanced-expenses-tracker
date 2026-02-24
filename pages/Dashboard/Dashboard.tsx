@@ -25,25 +25,57 @@ const Dashboard: React.FC = () => {
   // 1. Total Balance
   const totalBalance = useMemo(() => accounts.reduce((acc, curr) => acc + curr.balance, 0), [accounts]);
   
-  // 2. Monthly Stats
-  const { monthlyIncome, monthlyExpense, prevMonthIncome, prevMonthExpense } = useMemo(() => {
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-    const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
-    const prevMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+  // 2. Statistics & Chart Data (Optimized single-pass calculation)
+  const { chartData, monthlyIncome, monthlyExpense, prevMonthIncome, prevMonthExpense } = useMemo(() => {
+    const today = new Date();
 
-    const filterByMonth = (dateStr: string, m: number, y: number) => {
-      const d = new Date(dateStr);
-      return d.getMonth() === m && d.getFullYear() === y;
+    // Initialize 6 months buckets
+    // Map key: "YYYY-MM" -> { name, income: 0, expense: 0 }
+    const monthsMap = new Map<string, { name: string; income: number; expense: number }>();
+    const monthKeys: string[] = [];
+
+    // Pre-fill map with last 6 months to ensure zero values for empty months
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+      const y = d.getFullYear();
+      const m = d.getMonth();
+      const key = `${y}-${(m + 1).toString().padStart(2, '0')}`;
+      const name = d.toLocaleString('default', { month: 'short' });
+      monthsMap.set(key, { name, income: 0, expense: 0 });
+      monthKeys.push(key);
+    }
+
+    // Helper to add transaction
+    const addTransaction = (t: { date: string, amount: number }, type: 'income' | 'expense') => {
+        // Parse date directly from string "YYYY-MM-DD"
+        // t.date format is YYYY-MM-DD. Substring(0, 7) gives YYYY-MM
+        const key = t.date.substring(0, 7);
+        if (monthsMap.has(key)) {
+            const entry = monthsMap.get(key)!;
+            entry[type] += t.amount;
+        }
     };
 
-    const mIncome = incomes.filter(i => filterByMonth(i.date, currentMonth, currentYear)).reduce((sum, i) => sum + i.amount, 0);
-    const mExpense = expenses.filter(e => filterByMonth(e.date, currentMonth, currentYear)).reduce((sum, e) => sum + e.amount, 0);
-    const pIncome = incomes.filter(i => filterByMonth(i.date, prevMonth, prevMonthYear)).reduce((sum, i) => sum + i.amount, 0);
-    const pExpense = expenses.filter(e => filterByMonth(e.date, prevMonth, prevMonthYear)).reduce((sum, e) => sum + e.amount, 0);
+    // Single pass over incomes and expenses (O(N + M))
+    incomes.forEach(i => addTransaction(i, 'income'));
+    expenses.forEach(e => addTransaction(e, 'expense'));
 
-    return { monthlyIncome: mIncome, monthlyExpense: mExpense, prevMonthIncome: pIncome, prevMonthExpense: pExpense };
+    const data = monthKeys.map(key => monthsMap.get(key)!);
+
+    // Extract current and prev month stats
+    const currentKey = monthKeys[monthKeys.length - 1]; // Last element is current month
+    const prevKey = monthKeys[monthKeys.length - 2];    // Second to last is previous month
+
+    const currentStats = monthsMap.get(currentKey) || { income: 0, expense: 0 };
+    const prevStats = monthsMap.get(prevKey) || { income: 0, expense: 0 };
+
+    return {
+        chartData: data,
+        monthlyIncome: currentStats.income,
+        monthlyExpense: currentStats.expense,
+        prevMonthIncome: prevStats.income,
+        prevMonthExpense: prevStats.expense
+    };
   }, [incomes, expenses]);
 
   // 3. Investments Value
@@ -54,29 +86,6 @@ const Dashboard: React.FC = () => {
 
   // 5. Net Worth
   const netWorth = totalBalance + totalInvestmentValue - totalLiabilities;
-
-  // 6. Chart Data (Cash Flow)
-  const chartData = useMemo(() => {
-    // Generate data for last 6 months
-    const result = [];
-    for (let i = 5; i >= 0; i--) {
-      const d = new Date();
-      d.setMonth(d.getMonth() - i);
-      const month = d.toLocaleString('default', { month: 'short' });
-      const year = d.getFullYear();
-      
-      const inc = incomes
-        .filter(item => { const date = new Date(item.date); return date.getMonth() === d.getMonth() && date.getFullYear() === year; })
-        .reduce((sum, item) => sum + item.amount, 0);
-      
-      const exp = expenses
-        .filter(item => { const date = new Date(item.date); return date.getMonth() === d.getMonth() && date.getFullYear() === year; })
-        .reduce((sum, item) => sum + item.amount, 0);
-        
-      result.push({ name: month, income: inc, expense: exp });
-    }
-    return result;
-  }, [incomes, expenses]);
 
   // 7. Electricity Data
   const electricityData = useMemo(() => {
