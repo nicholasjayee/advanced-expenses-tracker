@@ -21,7 +21,7 @@ export const IncomeCharts: React.FC<IncomeChartsProps> = ({ incomes }) => {
     });
     return Object.entries(map)
       .map(([date, amount]) => ({ date, amount }))
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .sort((a, b) => a.date.localeCompare(b.date))
       .slice(-30);
   }, [incomes]);
 
