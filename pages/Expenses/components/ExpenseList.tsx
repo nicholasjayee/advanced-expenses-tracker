@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Expense, ExpenseCategory } from '../types/index.ts';
 import { Tag, Calendar, Zap, CreditCard } from 'lucide-react';
 import { Account } from '../../../data/accounts.ts';
@@ -10,13 +10,18 @@ interface ExpenseListProps {
 }
 
 export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, accounts }) => {
+  // Memoize account map to optimize lookups from O(N) to O(1)
+  const accountMap = useMemo(() => {
+    return new Map(accounts.map(account => [account.id, account]));
+  }, [accounts]);
+
   const getAccountName = (id: string) => {
-    const acc = accounts.find(a => a.id === id);
+    const acc = accountMap.get(id);
     return acc ? acc.name : 'Unknown Account';
   };
 
   const getAccountColor = (id: string) => {
-    const acc = accounts.find(a => a.id === id);
+    const acc = accountMap.get(id);
     return acc ? acc.color : 'bg-gray-500';
   }
 
