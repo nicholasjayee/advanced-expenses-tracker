@@ -9,7 +9,7 @@ const History: React.FC = () => {
 
   // Sort by date descending
   const sortedNotifications = [...notifications].sort((a, b) => 
-    new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    b.timestamp.getTime() - a.timestamp.getTime()
   );
 
   return (

@@ -15,6 +15,12 @@ export const IncomeList: React.FC<IncomeListProps> = ({ incomes, accounts }) => 
     const map = new Map<string, Account>();
     accounts.forEach(acc => map.set(acc.id, acc));
     return map;
+  // Optimize O(N) array lookup inside loop to O(1) map lookup
+  const accountMap = useMemo(() => {
+    return accounts.reduce((map, account) => {
+      map.set(account.id, account);
+      return map;
+    }, new Map<string, Account>());
   }, [accounts]);
 
   const getAccountName = (id: string) => {
