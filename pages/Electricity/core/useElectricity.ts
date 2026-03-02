@@ -10,7 +10,7 @@ export const useElectricity = () => {
   const electricityExpenses = useMemo(() => {
     return expenses
       .filter(e => e.category === ExpenseCategory.ELECTRICITY)
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      .sort((a, b) => b.date.localeCompare(a.date));
   }, [expenses]);
 
   const stats = useMemo(() => {

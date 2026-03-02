@@ -91,10 +91,16 @@ const Dashboard: React.FC = () => {
   const electricityData = useMemo(() => {
     return expenses
       .filter(e => e.category === ExpenseCategory.ELECTRICITY && e.electricityUnits)
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      // Optimized: Avoid new Date() creation in sort and map
+      .sort((a, b) => a.date.localeCompare(b.date))
       .slice(-7)
       .map(e => ({
-        date: new Date(e.date).getDate(), // Day of month
+        date: parseInt(e.date.split('-')[2], 10), // Day of month
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(-7)
+      .map(e => ({
+        // Optimized: Parse day directly from string to avoid Date object allocation and timezone offsets
+        date: parseInt(e.date.split('-')[2], 10),
         kwh: e.electricityUnits || 0
       }));
   }, [expenses]);
