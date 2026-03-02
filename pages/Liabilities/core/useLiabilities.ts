@@ -6,18 +6,26 @@ export const useLiabilities = () => {
   const { liabilities, addLiability, deleteLiability, updateLiability } = useLiabilitiesContext();
 
   const stats = useMemo(() => {
-    const totalDebt = liabilities.reduce((acc, curr) => acc + curr.remainingAmount, 0);
-    const totalMonthlyPayment = liabilities.reduce((acc, curr) => acc + (curr.minimumPayment || 0), 0);
-    const count = liabilities.length;
-    
-    // Sort by APR descending for Avalanche method
-    const highestApr = [...liabilities].sort((a, b) => b.interestRate - a.interestRate)[0];
+    let totalDebt = 0;
+    let totalMonthlyPayment = 0;
+    let highestAprLiability = liabilities.length > 0 ? liabilities[0] : undefined;
+
+    // Optimized: Calculate stats and find highest APR in a single O(N) pass
+    // instead of multiple O(N) reduces and an O(N log N) sort.
+    for (const liability of liabilities) {
+      totalDebt += liability.remainingAmount;
+      totalMonthlyPayment += (liability.minimumPayment || 0);
+
+      if (liability.interestRate > highestAprLiability!.interestRate) {
+        highestAprLiability = liability;
+      }
+    }
 
     return {
       totalDebt,
       totalMonthlyPayment,
-      count,
-      highestAprLiability: highestApr
+      count: liabilities.length,
+      highestAprLiability
     };
   }, [liabilities]);
 

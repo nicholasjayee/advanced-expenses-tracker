@@ -25,3 +25,7 @@
 **Learning:** List components repeatedly doing `find` over a shared list causes N+1 problems.
 **Action:** Use `useMemo` to construct lookup maps (N * 1) vs doing `.find` on each render loop (N * M).
 
+
+## 2026-03-02 - Single-pass array reduction
+**Learning:** Chaining array methods like `.reduce()` and `.sort()` inside `useMemo` requires multiple passes over the same array, which can be a performance hit (O(N) + O(N) + O(N log N)).
+**Action:** Optimize calculations over a collection by iterating through the list once with a simple `for...of` loop to aggregate totals and locate max/min items in O(N) time.

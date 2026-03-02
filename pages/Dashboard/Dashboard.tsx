@@ -95,12 +95,8 @@ const Dashboard: React.FC = () => {
       .sort((a, b) => a.date.localeCompare(b.date))
       .slice(-7)
       .map(e => ({
-        date: parseInt(e.date.split('-')[2], 10), // Day of month
-      .sort((a, b) => a.date.localeCompare(b.date))
-      .slice(-7)
-      .map(e => ({
         // Optimized: Parse day directly from string to avoid Date object allocation and timezone offsets
-        date: parseInt(e.date.split('-')[2], 10),
+        date: parseInt(e.date.split('-')[2], 10), // Day of month
         kwh: e.electricityUnits || 0
       }));
   }, [expenses]);
