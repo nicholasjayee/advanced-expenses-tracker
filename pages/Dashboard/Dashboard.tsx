@@ -91,6 +91,11 @@ const Dashboard: React.FC = () => {
   const electricityData = useMemo(() => {
     return expenses
       .filter(e => e.category === ExpenseCategory.ELECTRICITY && e.electricityUnits)
+      // Optimized: Avoid new Date() creation in sort and map
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(-7)
+      .map(e => ({
+        date: parseInt(e.date.split('-')[2], 10), // Day of month
       .sort((a, b) => a.date.localeCompare(b.date))
       .slice(-7)
       .map(e => ({
