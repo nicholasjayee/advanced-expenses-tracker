@@ -5,3 +5,7 @@
 ## 2024-05-24 - [Missing Entry Point]
 **Learning:** `index.html` was missing the `<script type="module" src="/index.tsx"></script>` tag, causing the app to render a blank page in development and preventing JS generation during build.
 **Action:** Always verify `index.html` entry points when diagnosing "blank page" issues or empty build outputs.
+=======
+## 2024-05-14 - List component N+1 optimizations
+**Learning:** List components repeatedly doing `find` over a shared list causes N+1 problems.
+**Action:** Use `useMemo` to construct lookup maps (N * 1) vs doing `.find` on each render loop (N * M).
