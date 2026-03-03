@@ -10,11 +10,6 @@ interface IncomeListProps {
 }
 
 export const IncomeList: React.FC<IncomeListProps> = ({ incomes, accounts }) => {
-  // Memoize accounts into a Map for O(1) lookups instead of O(N) finds inside the map loop
-  const accountMap = useMemo(() => {
-    const map = new Map<string, Account>();
-    accounts.forEach(acc => map.set(acc.id, acc));
-    return map;
   // Optimize O(N) array lookup inside loop to O(1) map lookup
   const accountMap = useMemo(() => {
     return accounts.reduce((map, account) => {
