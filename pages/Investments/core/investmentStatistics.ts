@@ -29,8 +29,17 @@ const COLORS = {
  * Calculates total portfolio value and cost basis
  */
 export const calculatePerformance = (investments: Investment[]): PerformanceMetric => {
-  const totalInvested = investments.reduce((acc, curr) => acc + curr.costBasis, 0);
-  const currentValue = investments.reduce((acc, curr) => acc + curr.value, 0);
+  // Performance Optimization: Combine multiple .reduce() passes into a single O(N) loop
+  // Expected Impact: Reduces array traversals from O(2N) to O(N), improving render times
+  // for large investment portfolios during Dashboard and Investment page loads.
+  let totalInvested = 0;
+  let currentValue = 0;
+
+  for (const investment of investments) {
+    totalInvested += investment.costBasis;
+    currentValue += investment.value;
+  }
+
   const unrealizedPL = currentValue - totalInvested;
   
   return {
