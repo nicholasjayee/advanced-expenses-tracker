@@ -9,10 +9,6 @@
 
 ## Entries
 
-## 2024-05-24 - Efficient Date Handling
-**Learning:** Frequent creation of `Date` objects in sort comparators and map loops is a significant performance bottleneck in React render cycles, especially for list processing.
-**Action:** Use string comparison for ISO dates (YYYY-MM-DD) and direct property access for Date objects instead of re-instantiating them.
-=======
 ## 2024-05-24 - [Date Parsing Bottleneck]
 **Learning:** `new Date()` is expensive in loops and prone to timezone inconsistencies when parsing "YYYY-MM-DD" strings.
 **Action:** Use `String.localeCompare` for sorting ISO dates and `parseInt(dateStr.split('-')[2], 10)` for extracting days, avoiding object allocation and timezone shifts.
@@ -20,11 +16,10 @@
 ## 2024-05-24 - [Missing Entry Point]
 **Learning:** `index.html` was missing the `<script type="module" src="/index.tsx"></script>` tag, causing the app to render a blank page in development and preventing JS generation during build.
 **Action:** Always verify `index.html` entry points when diagnosing "blank page" issues or empty build outputs.
-=======
+
 ## 2024-05-14 - List component N+1 optimizations
 **Learning:** List components repeatedly doing `find` over a shared list causes N+1 problems.
 **Action:** Use `useMemo` to construct lookup maps (N * 1) vs doing `.find` on each render loop (N * M).
-
 
 ## 2026-03-02 - Single-pass array reduction
 **Learning:** Chaining array methods like `.reduce()` and `.sort()` inside `useMemo` requires multiple passes over the same array, which can be a performance hit (O(N) + O(N) + O(N log N)).
