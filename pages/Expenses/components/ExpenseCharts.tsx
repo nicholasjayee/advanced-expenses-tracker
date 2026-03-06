@@ -37,7 +37,21 @@ export const ExpenseCharts: React.FC<ExpenseChartsProps> = ({ expenses }) => {
 
   // 3. Top Expenses
   const topExpenses = useMemo(() => {
-      return [...expenses].sort((a, b) => b.amount - a.amount).slice(0, 5);
+      // ⚡ Bolt: Performance Optimization
+      // Replaced O(N log N) full array sort with an O(N) single-pass algorithm
+      // to keep track of the top 5 expenses, significantly improving render
+      // speed for components with high transaction volumes.
+      const top: Expense[] = [];
+      for (const exp of expenses) {
+          if (top.length < 5) {
+              top.push(exp);
+              top.sort((a, b) => b.amount - a.amount);
+          } else if (exp.amount > top[4].amount) {
+              top[4] = exp;
+              top.sort((a, b) => b.amount - a.amount);
+          }
+      }
+      return top;
   }, [expenses]);
 
   const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#6366f1'];
