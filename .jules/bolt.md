@@ -28,3 +28,7 @@
 ## 2026-03-02 - Single-pass array reduction
 **Learning:** Chaining array methods like `.reduce()` inside `useMemo` requires multiple passes over the same array, which can be a performance hit (O(2N)).
 **Action:** Optimize calculations over a collection by iterating through the list once with a simple `for...of` loop to aggregate multiple totals in a single O(N) pass.
+
+## 2026-03-06 - Replacing full sorts for Top-N queries
+**Learning:** Fetching the top N items from an array using `[...array].sort().slice(0, N)` causes unnecessary overhead (full array clone + O(N log N) sorting), which becomes a rendering bottleneck for large datasets like transaction lists.
+**Action:** Extract top N items using a single O(N) pass with a `for...of` loop that maintains a local array of the top N items.
