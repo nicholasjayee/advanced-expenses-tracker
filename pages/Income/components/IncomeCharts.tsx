@@ -36,7 +36,23 @@ export const IncomeCharts: React.FC<IncomeChartsProps> = ({ incomes }) => {
 
   // 3. Top Incomes
   const topIncomes = useMemo(() => {
-      return [...incomes].sort((a, b) => b.amount - a.amount).slice(0, 5);
+      // ⚡ Bolt: Performance Optimization
+      // Replaced O(N log N) full array sort and clone with a single O(N) pass.
+      // Expected impact: Faster rendering of IncomeCharts for large datasets by maintaining a local top 5 list.
+      const top: Income[] = [];
+      for (const income of incomes) {
+          let i = 0;
+          while (i < top.length && top[i].amount >= income.amount) {
+              i++;
+          }
+          if (i < 5) {
+              top.splice(i, 0, income);
+              if (top.length > 5) {
+                  top.pop();
+              }
+          }
+      }
+      return top;
   }, [incomes]);
 
   const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ec4899', '#06b6d4'];
