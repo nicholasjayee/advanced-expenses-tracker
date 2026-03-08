@@ -28,3 +28,7 @@
 ## 2026-03-02 - Single-pass array reduction
 **Learning:** Chaining array methods like `.reduce()` inside `useMemo` requires multiple passes over the same array, which can be a performance hit (O(2N)).
 **Action:** Optimize calculations over a collection by iterating through the list once with a simple `for...of` loop to aggregate multiple totals in a single O(N) pass.
+
+## 2024-05-24 - Single-pass Top N item calculations
+**Learning:** Finding the top N items using `[...array].sort().slice(0, N)` on large datasets involves an O(N) array clone and an O(N log N) sort.
+**Action:** Use a single-pass `for...of` loop with a small size-N buffer array to keep the top elements. The sort only happens on the N items, meaning for small N, the overall time complexity drops to O(N).
