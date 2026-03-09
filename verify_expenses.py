@@ -14,14 +14,18 @@ async def run():
             # Wait for any text that indicates the page is loading/loaded
             # "Add Expense" is likely a button or header on the expenses page
             print("Waiting for page content...")
-            await page.wait_for_selector("text=Add Expense", timeout=10000)
+            await page.wait_for_selector("text=Expenses", timeout=10000)
+
+            # Let's switch to the chart view to verify the component we edited
+            print("Switching to Chart View...")
+            await page.click("text=Chart View")
 
             # Wait a bit for animations/rendering
             await page.wait_for_timeout(2000)
 
             # Take a screenshot
             print("Taking screenshot...")
-            await page.screenshot(path="expenses_screenshot.png", full_page=True)
+            await page.screenshot(path="expenses_chart_screenshot.png", full_page=True)
             print("Screenshot taken successfully")
         except Exception as e:
             print(f"Error: {e}")
