@@ -12,9 +12,9 @@ async def run():
             await page.goto("http://localhost:3000/#/expenses", timeout=30000)
 
             # Wait for any text that indicates the page is loading/loaded
-            # "Add Expense" is likely a button or header on the expenses page
+            # "Add New Expense" is likely a button or header on the expenses page
             print("Waiting for page content...")
-            await page.wait_for_selector("text=Add Expense", timeout=10000)
+            await page.wait_for_selector("text=Add New Expense", timeout=10000)
 
             # Wait a bit for animations/rendering
             await page.wait_for_timeout(2000)
