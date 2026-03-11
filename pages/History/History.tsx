@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNotifications } from '../../context/NotificationContext';
 import { NotificationItem } from '../../components/notifications/NotificationItem';
 import { CheckCheck, Trash2, BellOff, Bell } from 'lucide-react';
@@ -7,9 +7,12 @@ import { Card } from '../../components/ui/Card';
 const History: React.FC = () => {
   const { notifications, markAsRead, markAllAsRead, removeNotification, clearAll } = useNotifications();
 
+  // ⚡ Bolt: Performance Optimization - Memoize sorted notifications
+  // Prevents O(N log N) sorting and array allocation on every render
   // Sort by date descending
-  const sortedNotifications = [...notifications].sort((a, b) => 
-    b.timestamp.getTime() - a.timestamp.getTime()
+  const sortedNotifications = useMemo(() =>
+    [...notifications].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime()),
+    [notifications]
   );
 
   return (
