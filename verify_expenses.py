@@ -14,7 +14,11 @@ async def run():
             # Wait for any text that indicates the page is loading/loaded
             # "Add Expense" is likely a button or header on the expenses page
             print("Waiting for page content...")
-            await page.wait_for_selector("text=Add Expense", timeout=10000)
+            await page.wait_for_selector("text=Expenses", timeout=10000)
+
+            # Click "Chart View"
+            print("Clicking Chart View...")
+            await page.click("text=Chart View")
 
             # Wait a bit for animations/rendering
             await page.wait_for_timeout(2000)
