@@ -8,9 +8,16 @@ const History: React.FC = () => {
   const { notifications, markAsRead, markAllAsRead, removeNotification, clearAll } = useNotifications();
 
   // Sort by date descending
-  const sortedNotifications = [...notifications].sort((a, b) => 
-    b.timestamp.getTime() - a.timestamp.getTime()
-  );
+  // ⚡ Bolt: Performance Optimization
+  // Wrapped sortedNotifications in useMemo to prevent O(N log N) array sorting
+  // and full array cloning on every render of the History component.
+  // Expected impact: Faster render times when interacting with individual notification items (like marking as read)
+  // when the notification list is large.
+  const sortedNotifications = React.useMemo(() => {
+    return [...notifications].sort((a, b) =>
+      b.timestamp.getTime() - a.timestamp.getTime()
+    );
+  }, [notifications]);
 
   return (
     <div className="space-y-6">
